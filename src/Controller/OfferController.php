@@ -16,7 +16,7 @@ class OfferController extends AbstractController
         $this->entityManager = $entityManager;
     }
     
-    #[Route('/offre', name: 'app_offre')]
+    #[Route('/offre', name: 'app_offer')]
     public function offer(ManagerRegistry $managerRegistry): Response
     {
         $offer = $this->entityManager
