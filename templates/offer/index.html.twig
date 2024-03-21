@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OfferController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		{% for singleOffer in offer %}
+			<div class="offer">
+				<h2>{{ singleOffer.name }}</h2>
+				<p>{{ singleOffer.description }}</p>
+				<p>Prix :
+					{{ singleOffer.price }}
+					€</p>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
