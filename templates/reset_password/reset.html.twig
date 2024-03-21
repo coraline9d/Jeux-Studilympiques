@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié
+{% endblock %}
+
+{% block body %}
+	<main>
+		<article>
+			<h1 class="title">MOT DE PASSE OUBLIÉ</h1>
+			<div class="form">
+				{{ form_start(resetForm) }}
+				{{ form_row(resetForm.plainPassword) }}
+				<button>CHANGER VOTRE MOT DE PASSE</button>
+				{{ form_end(resetForm) }}</div>
+		</article>
+	</main>
+{% endblock %}

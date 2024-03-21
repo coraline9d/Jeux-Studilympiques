@@ -1,0 +1,13 @@
+<h1 class="title">Jeux Studilympiques - Résiliation Mot de Passe</h1>
+<div class="form">
+	<p>Pour supprimer votre ancien mot de passe, veuillez appuyer sur ce lien</p>
+
+	<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+
+	<p>Ce lien expira dans
+		{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+
+	<p>A bientôt dans notre restaurant</p>
+
+	<p>Jeux Studilympiques</p>
+</div>
