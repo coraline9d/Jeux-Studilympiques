@@ -25,6 +25,7 @@
 				<p>Prix :
 					{{ singleOffer.price }}
 					€</p>
+				<a href="{{ path('app_reservation_new', {'offerId': singleOffer.id}) }}" class="btn btn-primary">Réserver</a>
 			</div>
 		{% endfor %}
 	</div>

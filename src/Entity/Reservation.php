@@ -9,6 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
+    public function __toString()
+    {
+        return $this->id;
+        return $this->firstname;
+        return $this->lastname;
+    } 
+
     #[ORM\Id]
     #[ORM\GeneratedValue('CUSTOM')]
     #[ORM\Column(type: 'uuid', unique: true)]
@@ -18,16 +25,13 @@ class Reservation
     #[ORM\Column]
     private ?int $number_of_ticket = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
-
     #[ORM\Column(length: 60)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 60)]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::BLOB)]
+    #[ORM\Column(type: Types::BLOB,nullable: true)]
     private $ticket;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
@@ -47,18 +51,6 @@ class Reservation
     public function setNumberOfTicket(int $number_of_ticket): static
     {
         $this->number_of_ticket = $number_of_ticket;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): static
-    {
-        $this->date = $date;
 
         return $this;
     }

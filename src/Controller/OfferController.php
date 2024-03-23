@@ -46,4 +46,3 @@ class OfferController extends AbstractController
     //     ]);
     // }
 }
-

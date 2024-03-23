@@ -9,6 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 class Offer
 {
+    public function __toString()
+    {
+        return $this->id;
+        return $this->name;
+        return $this->description;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue('CUSTOM')]
     #[ORM\Column(type: 'uuid', unique: true)]
