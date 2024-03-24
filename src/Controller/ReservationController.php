@@ -10,24 +10,47 @@ use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
 {
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
-    public function index(ReservationRepository $reservationRepository): Response
+    public function index(ReservationRepository $reservationRepository, SessionInterface $session): Response
     {
+        // Récupération de l'heure actuelle
+        $now = new \DateTime();
+
+        // Récupération de l'heure qu'il était il y a 15 minutes
+        $fifteenMinutesAgo = (clone $now)->modify('-15 minutes');
+
+        // Récupération des réservations de la session
+        $reservationsInCart = $session->get('reservations', []);
+
+        // Filtrage des réservations ajoutées dans les 15 dernières minutes
+        $reservations = array_filter($reservationsInCart, function ($reservation) use ($fifteenMinutesAgo) {
+            return $reservation['timeAdded'] > $fifteenMinutesAgo;
+        });
+
+        // Mise à jour des réservations dans la session
+        $session->set('reservations', $reservations);
+
         return $this->render('reservation/index.html.twig', [
-            'reservations' => $reservationRepository->findAll(),
+            'reservations' => $reservations,
         ]);
     }
-    
-    #[Route('/new/{offerId}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, $offerId): Response
+
+    #[Route('/new/{offerId?}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, $offerId = null, SessionInterface $session): Response
     {
         // Récupération de l'utilisateur connecté
         $user = $this->getUser();
+
+        if ($offerId === null) {
+            // Redirigez l'utilisateur vers la page de sélection d'une offre
+            return $this->redirectToRoute('app_offer');
+        } 
 
         // Récupération de l'offre sélectionnée
         $offer = $offerRepository->find($offerId);
@@ -46,10 +69,18 @@ class ReservationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Association de l'utilisateur à la réservation
             $reservation->setUser($user);
-    
+        
             $entityManager->persist($reservation);
             $entityManager->flush();
-    
+        
+            // Ajout de la réservation à la session
+            $reservationsInCart = $session->get('reservations', []);
+            $reservationsInCart[] = [
+                'reservation' => $reservation,
+                'timeAdded' => new \DateTime(),
+            ];
+            $session->set('reservations', $reservationsInCart);
+        
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
     
