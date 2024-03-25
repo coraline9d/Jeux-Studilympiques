@@ -28,8 +28,10 @@
 					<td>
 						<a href="{{ path('app_reservation_show', {'id': reservation.reservation.id}) }}">show</a>
 						<a href="{{ path('app_reservation_edit', {'id': reservation.reservation.id}) }}">edit</a>
+						<a href="{{ path('app_reservation_delete', {'id': reservation.reservation.id}) }}">supprimer</a>
 					</td>
 				</tr>
+
 			{% else %}
 				<tr>
 					<td colspan="7">no records found</td>
@@ -37,6 +39,6 @@
 			{% endfor %}
 		</tbody>
 	</table>
-
+	<a href="{{ path('app_payment_new', {'reservations': reservations}) }}">Payer</a>
 	<a href="{{ path('app_reservation_new') }}">Create new</a>
 {% endblock %}

@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ReservationController extends AbstractController
 {
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
-    public function index(ReservationRepository $reservationRepository, SessionInterface $session): Response
+    public function index(ReservationRepository $reservationRepository, SessionInterface $session, OfferRepository $offerRepository): Response
     {
         // Récupération de l'heure actuelle
         $now = new \DateTime();
@@ -29,9 +29,11 @@ class ReservationController extends AbstractController
         $reservationsInCart = $session->get('reservations', []);
 
         // Filtrage des réservations ajoutées dans les 15 dernières minutes
-        $reservations = array_filter($reservationsInCart, function ($reservation) use ($fifteenMinutesAgo) {
-            return $reservation['timeAdded'] > $fifteenMinutesAgo;
+        $reservations = array_filter($reservationsInCart, function ($reservation) use ($fifteenMinutesAgo, $offerRepository) {
+            $offer = $offerRepository->find($reservation['offerId']);
+            return $reservation['timeAdded'] > $fifteenMinutesAgo && $offer;
         });
+        
 
         // Mise à jour des réservations dans la session
         $session->set('reservations', $reservations);
@@ -73,10 +75,11 @@ class ReservationController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
         
-            // Ajout de la réservation à la session
+            // Ajout de la réservation et de l'identifiant de l'offre à la session
             $reservationsInCart = $session->get('reservations', []);
             $reservationsInCart[] = [
                 'reservation' => $reservation,
+                'offerId' => $offer->getId(), // Ajout de l'identifiant de l'offre
                 'timeAdded' => new \DateTime(),
             ];
             $session->set('reservations', $reservationsInCart);

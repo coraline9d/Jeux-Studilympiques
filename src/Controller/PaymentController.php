@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Payment;
 use App\Form\PaymentType;
+use App\Repository\OfferRepository;
 use App\Repository\PaymentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/payment')]
 class PaymentController extends AbstractController
@@ -23,7 +25,7 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_payment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, OfferRepository $offerRepository): Response
     {
         // Récupération de l'utilisateur connecté
         $user = $this->getUser(); 
@@ -35,7 +37,22 @@ class PaymentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Association de l'utilisateur au paiement
             $payment->setUser($user);
-            
+
+            // Récupération des réservations dans le panier
+                $reservationsInCart = $session->get('reservations', []);
+            foreach ($reservationsInCart as $reservationInCart) {
+                // Récupération de l'offre associée à la réservation
+                $offer = $offerRepository->find($reservationInCart['offerId']);
+
+                // Mise à jour du compteur de l'offre
+                $numberOfTickets = $reservationInCart['reservation']->getNumberOfTicket();
+                $offer->setCounter($offer->getCounter() + $numberOfTickets);
+
+                // Supprimer la réservation de la session
+                unset($reservationsInCart[array_search($reservationInCart, $reservationsInCart)]);
+            }
+    
+            $session->set('reservations', $reservationsInCart);
             $entityManager->persist($payment);
             $entityManager->flush();
 
@@ -47,6 +64,7 @@ class PaymentController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_payment_show', methods: ['GET'])]
     public function show(Payment $payment): Response
