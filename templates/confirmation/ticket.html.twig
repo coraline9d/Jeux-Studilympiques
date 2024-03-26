@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket
+{% endblock %}
+
+{% block body %}
+	<h2>Offres</h2>
+	<ul>
+		{% for offer in offers %}
+			<li>
+				<strong>Offre :</strong>
+				{{ offer.name }}
+				<br>
+				<strong>Quantité :</strong>
+				{{ offer.numberOfTickets }}
+			</li>
+		{% endfor %}
+	</ul>
+
+	<h2>QR Code</h2>
+	<div>
+		<img src="{{ qrCodeImage|data_uri }}" alt="QR Code">
+	</div>
+
+	<a href="{{ url('app_confirmation') }}">Retour à la confirmation</a>
+{% endblock %}

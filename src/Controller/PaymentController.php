@@ -39,7 +39,11 @@ class PaymentController extends AbstractController
             $payment->setUser($user);
 
             // Récupération des réservations dans le panier
-                $reservationsInCart = $session->get('reservations', []);
+            $reservationsInCart = $session->get('reservations', []);
+
+            // Initialisation de la variable $offers
+            $offers = [];
+
             foreach ($reservationsInCart as $reservationInCart) {
                 // Récupération de l'offre associée à la réservation
                 $offer = $offerRepository->find($reservationInCart['offerId']);
@@ -48,15 +52,19 @@ class PaymentController extends AbstractController
                 $numberOfTickets = $reservationInCart['reservation']->getNumberOfTicket();
                 $offer->setCounter($offer->getCounter() + $numberOfTickets);
 
+                // Stockage de l'offre et du nombre de billets dans la session
+            $offers[] = ['offer' => $offer, 'numberOfTickets' => $numberOfTickets];
+
                 // Supprimer la réservation de la session
                 unset($reservationsInCart[array_search($reservationInCart, $reservationsInCart)]);
             }
     
+            $session->set('offers', $offers);
             $session->set('reservations', $reservationsInCart);
             $entityManager->persist($payment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_confirmation', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('payment/new.html.twig', [
