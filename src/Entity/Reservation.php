@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,12 +33,26 @@ class Reservation
     #[ORM\Column(length: 60)]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::BLOB,nullable: true)]
-    private $ticket;
-
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\ManyToMany(targetEntity: Offer::class, inversedBy: 'reservations')]
+    private Collection $offer;
+
+    #[ORM\Column(length: 2083, nullable: true)]
+    private ?string $ticket = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isPaid = false;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    private ?Payment $payment = null;
+
+    public function __construct()
+    {
+        $this->offer = new ArrayCollection();
+    }
 
     public function getId(): ?string
     {
@@ -79,18 +95,6 @@ class Reservation
         return $this;
     }
 
-    public function getTicket()
-    {
-        return $this->ticket;
-    }
-
-    public function setTicket($ticket): static
-    {
-        $this->ticket = $ticket;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -99,6 +103,66 @@ class Reservation
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offer>
+     */
+    public function getOffer(): Collection
+    {
+        return $this->offer;
+    }
+
+    public function addOffer(Offer $offer): static
+    {
+        if (!$this->offer->contains($offer)) {
+            $this->offer->add($offer);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): static
+    {
+        $this->offer->removeElement($offer);
+
+        return $this;
+    }
+
+    public function getTicket(): ?string
+    {
+        return $this->ticket;
+    }
+
+    public function setTicket(?string $ticket): static
+    {
+        $this->ticket = $ticket;
+
+        return $this;
+    }
+
+    public function getIsPaid(): bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): static
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?Payment $payment): static
+    {
+        $this->payment = $payment;
 
         return $this;
     }

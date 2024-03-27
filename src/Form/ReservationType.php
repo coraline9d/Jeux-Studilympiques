@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 
 class ReservationType extends AbstractType
@@ -61,12 +62,16 @@ class ReservationType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('offer', EntityType::class, [
-                'class' => Offer::class,
+            ->add('offer', CollectionType::class, [
+                'entry_type' => EntityType::class,
+                'entry_options' => [
+                    'class' => Offer::class,
+                    'choice_label' => 'name',
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
                 'label' => 'Offre :',
-                'choice_label' => 'name',
-                'placeholder'=>'Choisissez un pass',
-                'mapped' => false,
                 'data' => $options['selected_offer'], // Utilisation de l'option 'selected_offer' pour pré-sélectionner l'offre
                 'constraints' => [
                     new NotBlank([

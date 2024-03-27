@@ -17,33 +17,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ConfirmationController extends AbstractController
 {
     #[Route('/confirmation', name: 'app_confirmation')]
-    public function index(SessionInterface $session, EntityManagerInterface $entityManager): Response
-    {
-        // Récupérez l'utilisateur connecté
-        $user = $this->getUser();
+public function index(EntityManagerInterface $entityManager): Response
+{
+    // Récupérez l'utilisateur connecté
+$user = $this->getUser();
 
-        // Récupérez le paiement de l'utilisateur
-        $payment = $entityManager->getRepository(Payment::class)->findOneBy(['user' => $user]);
+// Récupérez tous les paiements de l'utilisateur
+$payments = $entityManager->getRepository(Payment::class)->findBy(['user' => $user]);
 
-        if (!$payment) {
-            throw $this->createNotFoundException('Aucun paiement trouvé pour l\'utilisateur connecté');
+if (!$payments) {
+    throw $this->createNotFoundException('Aucun paiement trouvé pour l\'utilisateur connecté');
+}
+
+// Pour chaque paiement, récupérez les réservations associées
+foreach ($payments as $payment) { 
+    // Récupérez les réservations associées au paiement
+    $reservations = $payment->getReservations();
+
+    // Initialisez les variables
+    $offerDetails = [];
+
+    foreach ($reservations as $reservation) {
+        $offers = $reservation->getOffer();
+        $numberOfTickets = $reservation->getNumberOfTicket();
+    
+        // Créez un nouveau tableau pour chaque réservation
+        $offerDetailsPerReservation = [];
+    
+        foreach ($offers as $offer) {
+            $offerName = $offer->getName();
+            $offerDetailsPerReservation[] = ['offerName' => $offerName, 'numberOfTickets' => $numberOfTickets];
         }
-
-        // Récupérez les offres et le nombre de billets de la session
-        $offers = $session->get('offers', []);
-
-        // Générez la clé finale
-        $finalKey = $this->generateFinalKey($user->getId(), $payment->getId());
-
-        // Générez le QR Code
-        $qrCodeImage = $this->generateQrCode($finalKey);
-
-        return $this->render('confirmation/index.html.twig', [
-            'controller_name' => 'ConfirmationController',
-            'qrCodeImage' => $qrCodeImage,
-            'offers' => $offers,
-        ]);
+    
+        // Ajoutez les détails de l'offre de cette réservation au tableau principal
+        $offerDetails[] = $offerDetailsPerReservation;
     }
+}
+
+return $this->render('confirmation/index.html.twig', array(
+    'offerDetails' => $offerDetails, 
+));
+}
 
     public function generateFinalKey($authKey, $paymentKey)
     {
@@ -68,52 +82,93 @@ class ConfirmationController extends AbstractController
     }
 
     #[Route('/confirmation/ticket', name: 'app_confirmation_ticket')]
-    public function generatePdfTicket(SessionInterface $session, EntityManagerInterface $entityManager): Response
-    {
-        // Récupérez l'utilisateur connecté
-        $user = $this->getUser();
+public function generatePdfTicket(EntityManagerInterface $entityManager): Response
+{
+    // Récupérez l'utilisateur connecté
+$user = $this->getUser();
 
-        // Récupérez le paiement de l'utilisateur
-        $payment = $entityManager->getRepository(Payment::class)->findOneBy(['user' => $user]);
+// Récupérez tous les paiements de l'utilisateur
+$payments = $entityManager->getRepository(Payment::class)->findBy(['user' => $user]);
 
-        if (!$payment) {
-            throw $this->createNotFoundException('Aucun paiement trouvé pour l\'utilisateur connecté');
+if (!$payments) {
+    throw $this->createNotFoundException('Aucun paiement trouvé pour l\'utilisateur connecté');
+}
+
+// Pour chaque paiement, récupérez les réservations associées
+foreach ($payments as $payment) { 
+    // Récupérez les réservations associées au paiement
+    $reservations = $payment->getReservations();
+
+    // Initialisez les variables
+    $offerDetails = [];
+
+    foreach ($reservations as $reservation) {
+        $offers = $reservation->getOffer();
+        $numberOfTickets = $reservation->getNumberOfTicket();
+    
+        // Créez un nouveau tableau pour chaque réservation
+        $offerDetailsPerReservation = [];
+    
+        foreach ($offers as $offer) {
+            $offerName = $offer->getName();
+            $offerDetailsPerReservation[] = ['offerName' => $offerName, 'numberOfTickets' => $numberOfTickets];
         }
-
-        // Récupérez les offres et le nombre de billets de la session
-        $offers = $session->get('offers', []);
-
-        // Générez la clé finale
-        $finalKey = $this->generateFinalKey($user->getId(), $payment->getId());
-
-        // Générez le QR Code
-        $qrCodeImage = $this->generateQrCode($finalKey);
-
-        $html = $this->renderView('confirmation/ticket.html.twig', array(
-            'finalKey' => $finalKey,
-            'offers' => $offers,
-            'qrCodeImage' => $qrCodeImage, 
-        ));
-
-        // Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
-            "Attachment" => true
-        ]);
+    
+        // Ajoutez les détails de l'offre de cette réservation au tableau principal
+        $offerDetails[] = $offerDetailsPerReservation;
     }
+}
+    
+// Générez la clé finale
+$finalKey = $this->generateFinalKey($user->getId(), $payment->getId());
+
+// Générez le QR Code
+$qrCodeImage = $this->generateQrCode($finalKey);
+
+    $html = $this->renderView('confirmation/ticket.html.twig', array(
+        'finalKey' => $finalKey,
+        'offerDetails' => $offerDetails,
+        'qrCodeImage' => $qrCodeImage, 
+    ));
+
+    // Configure Dompdf according to your needs
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+
+    // Instantiate Dompdf with our options
+    $dompdf = new Dompdf($pdfOptions);
+
+    // Load HTML to Dompdf
+    $dompdf->loadHtml($html);
+
+    // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Render the HTML as PDF
+    $dompdf->render();
+
+    // Generate a unique filename
+    $filename = uniqid().'.pdf';
+
+    // Define the path where you want to save the PDF
+    $pdfPath = $this->getParameter('kernel.project_dir').'/public/pdf/'.$filename;
+
+    // Save the PDF to a file
+    file_put_contents($pdfPath, $dompdf->output());
+
+    // Set the path of the PDF file in the reservation
+    foreach ($reservations as $reservation) {
+        $reservation->setTicket($pdfPath);
+        $entityManager->persist($reservation);
+    }
+
+    // Flush all changes to the database
+    $entityManager->flush();
+
+    // Output the generated PDF to Browser (force download)
+    $dompdf->stream($filename, [
+        "Attachment" => true
+    ]);
+}
+
 }

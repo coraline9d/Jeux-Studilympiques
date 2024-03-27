@@ -7,6 +7,7 @@ use App\Form\PaymentType;
 use App\Repository\OfferRepository;
 use App\Repository\PaymentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,54 +26,55 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_payment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, OfferRepository $offerRepository): Response
-    {
-        // Récupération de l'utilisateur connecté
-        $user = $this->getUser(); 
+public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, ReservationRepository $reservationRepository): Response
+{
+    // Récupération de l'utilisateur connecté
+    $user = $this->getUser(); 
 
-        $payment = new Payment();
-        $form = $this->createForm(PaymentType::class, $payment);
-        $form->handleRequest($request);
+    $payment = new Payment();
+    $form = $this->createForm(PaymentType::class, $payment);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Association de l'utilisateur au paiement
-            $payment->setUser($user);
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Association de l'utilisateur au paiement
+        $payment->setUser($user);
 
-            // Récupération des réservations dans le panier
-            $reservationsInCart = $session->get('reservations', []);
+        // Récupération des réservations de l'utilisateur depuis la base de données
+        $reservations = $reservationRepository->findBy(['user' => $user, 'isPaid' => false]);
 
-            // Initialisation de la variable $offers
-            $offers = [];
+        foreach ($reservations as $reservation) {
+            // Récupération des offres associées à la réservation
+            $offers = $reservation->getOffer();
 
-            foreach ($reservationsInCart as $reservationInCart) {
-                // Récupération de l'offre associée à la réservation
-                $offer = $offerRepository->find($reservationInCart['offerId']);
-
+            foreach ($offers as $offer) {
                 // Mise à jour du compteur de l'offre
-                $numberOfTickets = $reservationInCart['reservation']->getNumberOfTicket();
-                $offer->setCounter($offer->getCounter() + $numberOfTickets);
+                $offer->setCounter($offer->getCounter() + $reservation->getNumberOfTicket());
 
-                // Stockage de l'offre et du nombre de billets dans la session
-            $offers[] = ['offer' => $offer, 'numberOfTickets' => $numberOfTickets];
-
-                // Supprimer la réservation de la session
-                unset($reservationsInCart[array_search($reservationInCart, $reservationsInCart)]);
+                // Persister l'offre modifiée
+                $entityManager->persist($offer);
             }
-    
-            $session->set('offers', $offers);
-            $session->set('reservations', $reservationsInCart);
-            $entityManager->persist($payment);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('app_confirmation', [], Response::HTTP_SEE_OTHER);
+            // Association du paiement à la réservation
+            $reservation->setPayment($payment);
+
+            // Mise à jour de l'état de paiement de la réservation
+            $reservation->setIsPaid(true);
+
+            // Dire à Doctrine de gérer (persist) l'entité Reservation
+            $entityManager->persist($reservation);
         }
 
-        return $this->render('payment/new.html.twig', [
-            'payment' => $payment,
-            'form' => $form,
-        ]);
+        $entityManager->persist($payment);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_confirmation', [], Response::HTTP_SEE_OTHER);
     }
 
+    return $this->render('payment/new.html.twig', [
+        'payment' => $payment,
+        'form' => $form->createView(),
+    ]);
+}
 
     #[Route('/{id}', name: 'app_payment_show', methods: ['GET'])]
     public function show(Payment $payment): Response

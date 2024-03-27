@@ -4,8 +4,20 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Confirmation</h1>
-	<p>Votre paiement a été effectué avec succès !</p>
+	<h2>Offres</h2>
+	<ul>
+		{% for offerDetailsPerReservation in offerDetails %}
+			{% for offerDetail in offerDetailsPerReservation %}
+				<li>
+					<strong>Offre :</strong>
+					{{ offerDetail.offerName }}
+					<br>
+					<strong>Quantité :</strong>
+					{{ offerDetail.numberOfTickets }}
+				</li>
+			{% endfor %}
+		{% endfor %}
+	</ul>
 
-	<a href="{{ url('app_confirmation_ticket') }}">Télécharger le billet en PDF</a>
+	<a href="{{ url('app_confirmation_ticket') }}">Retour à la confirmation</a>
 {% endblock %}

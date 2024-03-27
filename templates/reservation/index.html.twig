@@ -20,15 +20,15 @@
 		<tbody>
 			{% for reservation in reservations %}
 				<tr>
-					<td>{{ reservation.reservation.id }}</td>
-					<td>{{ reservation.reservation.numberOfTicket }}</td>
-					<td>{{ reservation.reservation.firstname }}</td>
-					<td>{{ reservation.reservation.lastname }}</td>
-					<td>{{ reservation.reservation.ticket }}</td>
+					<td>{{ reservation.id }}</td>
+					<td>{{ reservation.numberOfTicket }}</td>
+					<td>{{ reservation.firstname }}</td>
+					<td>{{ reservation.lastname }}</td>
+					<td>{{ reservation.ticket }}</td>
 					<td>
-						<a href="{{ path('app_reservation_show', {'id': reservation.reservation.id}) }}">show</a>
-						<a href="{{ path('app_reservation_edit', {'id': reservation.reservation.id}) }}">edit</a>
-						<a href="{{ path('app_reservation_delete', {'id': reservation.reservation.id}) }}">supprimer</a>
+						<a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
+						<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+						<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }}">supprimer</a>
 					</td>
 				</tr>
 
