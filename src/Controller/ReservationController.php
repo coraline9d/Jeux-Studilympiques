@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -105,15 +106,61 @@ $form = $this->createForm(ReservationType::class, $reservation, [
             'form' => $form,
         ]);
     }
-
+    
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($reservation);
-            $entityManager->flush();
+        // Vérification du jeton CSRF
+        if (!$this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
+            // Retourner une réponse d'erreur ou rediriger si le jeton CSRF est invalide
+            // Par exemple, return new Response('Invalid CSRF Token', Response::HTTP_BAD_REQUEST);
+            // ou return $this->redirectToRoute('app_reservation_index');
         }
-
-        return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+    
+        // Début de la transaction
+        $entityManager->beginTransaction();
+        try {
+            // Suppression des offres associées à la réservation
+            foreach ($reservation->getOffer() as $offer) {
+                $reservation->removeOffer($offer);
+                // Pas besoin de persister l'offre ici car elle sera automatiquement supprimée de la base de données
+            }
+    
+            // Suppression de la réservation
+            $entityManager->remove($reservation);
+            $entityManager->flush(); // Exécution de la transaction
+    
+            // Validation de la transaction
+            $entityManager->commit();
+    
+            // Retourner une réponse JSON indiquant le succès de la suppression
+            return new JsonResponse(['status' => 'success']);
+        } catch (\Exception $e) {
+            // En cas d'erreur, annuler la transaction et renvoyer une réponse d'erreur
+            $entityManager->rollback();
+            return new JsonResponse(['status' => 'error', 'message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
+
+#[Route('/total-cost', name: 'reservation_total_cost')]
+public function getTotalCost(ReservationRepository $reservationRepository): Response
+{
+    // Récupérez toutes les réservations non payées
+    $reservations = $reservationRepository->findBy(['isPaid' => false]);
+
+    $totalCost = 0;
+
+    // Calculez le coût total
+    foreach ($reservations as $reservation) {
+        foreach ($reservation->getOffer() as $offer) {
+            $totalCost += $offer->getPrice() * $reservation->getNumberOfTicket();
+        }
+    }
+
+    // Renvoyez le coût total en tant que réponse JSON
+    return new JsonResponse($totalCost);
+}
+
+
+
 }

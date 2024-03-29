@@ -7,4 +7,5 @@
 import "../styles/app.scss";
 
 require("./jquery.min.js");
+require("./ajax.js");
 import { Tooltip, Toast, Popover } from "bootstrap";

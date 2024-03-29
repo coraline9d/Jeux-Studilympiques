@@ -37,7 +37,7 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: Offer::class, inversedBy: 'reservations')]
+    #[ORM\ManyToMany(targetEntity: Offer::class, inversedBy: 'reservations', cascade: ["persist", "remove"])]
     private Collection $offer;
 
     #[ORM\Column(length: 2083, nullable: true)]
