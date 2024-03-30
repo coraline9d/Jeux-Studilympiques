@@ -90,59 +90,78 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
-public function edit(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
-{
-    if ($request->isMethod('POST')) {
+    public function edit(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
+    {
+        // Récupération de l'offre actuelle de la réservation
+        $offer = $reservation->getOffer();
+    
+        // Création du formulaire avec l'offre actuelle comme option
+        $form = $this->createForm(ReservationType::class, $reservation, [
+            'selected_offer' => $offer,
+        ]);
+        $form->handleRequest($request); 
+    
+        // Gestion de la soumission du formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();    
+    
+            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        }
+    
+        return $this->render('reservation/edit.html.twig', [
+            'reservation' => $reservation,
+            'form' => $form->createView(),
+        ]);
+    }
+        
+    
+    #[Route('/{id}/update-tickets', name: 'app_reservation_update_tickets', methods: ['POST'])]
+    public function updateTickets(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
+    {
         $numberOfTicket = $request->request->get('numberOfTicket');
         $reservation->setNumberOfTicket($numberOfTicket);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_reservation_index');
     }
-        return $this->render('reservation/edit.html.twig', [
-            'reservation' => $reservation,
-            'form' => $form,
-        ]);
-    }
-    
+     
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
-public function delete(Request $request, Reservation $reservation, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
-{
-    // Vérification du jeton CSRF
-    if (!$this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
-        // Retourner une réponse d'erreur ou rediriger si le jeton CSRF est invalide
-        // Par exemple, return new Response('Invalid CSRF Token', Response::HTTP_BAD_REQUEST);
-        // ou return $this->redirectToRoute('app_reservation_index');
-    }
-
-    // Début de la transaction
-    $entityManager->beginTransaction();
-    try {
-        // Suppression des offres associées à la réservation
-        foreach ($reservation->getOffer() as $offer) {
-            $reservation->removeOffer($offer);
-            // Pas besoin de persister l'offre ici car elle sera automatiquement supprimée de la base de données
+    public function delete(Request $request, Reservation $reservation, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
+    {
+        // Vérification du jeton CSRF
+        if (!$this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
+            // Retourner une réponse d'erreur ou rediriger si le jeton CSRF est invalide
+            // Par exemple, return new Response('Invalid CSRF Token', Response::HTTP_BAD_REQUEST);
+            // ou return $this->redirectToRoute('app_reservation_index');
         }
 
-        // Suppression de la réservation
-        $entityManager->remove($reservation);
-        $entityManager->flush(); // Exécution de la transaction
+        // Début de la transaction
+        $entityManager->beginTransaction();
+        try {
+            // Suppression des offres associées à la réservation
+            foreach ($reservation->getOffer() as $offer) {
+                $reservation->removeOffer($offer);
+                // Pas besoin de persister l'offre ici car elle sera automatiquement supprimée de la base de données
+            }
 
-        // Appel de la méthode getTotalCost pour obtenir le coût total après la suppression
-        $totalCost = $this->getTotalCost($reservationRepository)->getContent();
+            // Suppression de la réservation
+            $entityManager->remove($reservation);
+            $entityManager->flush(); // Exécution de la transaction
 
-        // Validation de la transaction
-        $entityManager->commit();
+            // Appel de la méthode getTotalCost pour obtenir le coût total après la suppression
+            $totalCost = $this->getTotalCost($reservationRepository)->getContent();
 
-        // Retourner une réponse JSON indiquant le succès de la suppression et le coût total
-        return new JsonResponse(['status' => 'success', 'totalCost' => $totalCost]);
-    } catch (\Exception $e) {
-        // En cas d'erreur, annuler la transaction et renvoyer une réponse d'erreur
-        $entityManager->rollback();
-        return new JsonResponse(['status' => 'error', 'message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            // Validation de la transaction
+            $entityManager->commit();
+
+            // Retourner une réponse JSON indiquant le succès de la suppression et le coût total
+            return new JsonResponse(['status' => 'success', 'totalCost' => $totalCost]);
+        } catch (\Exception $e) {
+            // En cas d'erreur, annuler la transaction et renvoyer une réponse d'erreur
+            $entityManager->rollback();
+            return new JsonResponse(['status' => 'error', 'message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
-}
-
 
     #[Route('/total-cost', name: 'reservation_total_cost', methods: ['GET'])]
     public function getTotalCost(ReservationRepository $reservationRepository): Response

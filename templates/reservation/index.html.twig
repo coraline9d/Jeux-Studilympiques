@@ -24,10 +24,11 @@
 				<tr>
 					<td>{{ reservation.id }}</td>
 					<td>
-						<form action="{{ path('app_reservation_edit', {'id': reservation.id}) }}" method="post">
-							<input type="number" name="numberOfTicket" value="{{ reservation.numberOfTicket }}">
+						<form action="{{ path('app_reservation_update_tickets', {'id': reservation.id}) }}" method="post">
+							<input type="number" name="numberOfTicket" value="{{ reservation.numberOfTicket }}" min="1" max="30">
 							<input type="submit" value="Mettre à jour">
 						</form>
+
 					</td>
 					<td>{{ reservation.firstname }}</td>
 					<td>{{ reservation.lastname }}</td>

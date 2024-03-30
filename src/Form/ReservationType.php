@@ -26,7 +26,7 @@ class ReservationType extends AbstractType
             'attr' => [
                 'id' => 'number_of_ticket',
                 'min' => 1,
-                'value'=>1
+                'placeholder' => 'Entrez nombre de Pass'
             ],
             'constraints' => [
                 new LessThanOrEqual([
@@ -87,6 +87,7 @@ class ReservationType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Reservation::class,
             'selected_offer' => null, // Ajout de l'option 'selected_offer'
+            'number_of_ticket'=> null,
         ]);
     }
 }
