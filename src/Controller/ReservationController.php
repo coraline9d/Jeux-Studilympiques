@@ -90,17 +90,15 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
+public function edit(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
+{
+    if ($request->isMethod('POST')) {
+        $numberOfTicket = $request->request->get('numberOfTicket');
+        $reservation->setNumberOfTicket($numberOfTicket);
+        $entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
+        return $this->redirectToRoute('app_reservation_index');
+    }
         return $this->render('reservation/edit.html.twig', [
             'reservation' => $reservation,
             'form' => $form,

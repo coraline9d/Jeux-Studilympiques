@@ -23,11 +23,15 @@
 			{% for reservation in reservations %}
 				<tr>
 					<td>{{ reservation.id }}</td>
-					<td>{{ reservation.numberOfTicket }}</td>
+					<td>
+						<form action="{{ path('app_reservation_edit', {'id': reservation.id}) }}" method="post">
+							<input type="number" name="numberOfTicket" value="{{ reservation.numberOfTicket }}">
+							<input type="submit" value="Mettre à jour">
+						</form>
+					</td>
 					<td>{{ reservation.firstname }}</td>
 					<td>{{ reservation.lastname }}</td>
 					<td>{{ reservation.ticket }}</td>
-
 					<td>
 						<a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
 						<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
