@@ -1,5 +1,81 @@
 @import'./custom.scss';
+@import'./variables.scss';
+@import'./navbar.scss';
+@import'./footer.scss';
+@import'./home.scss';
+@import'./offer.scss';
 
-body {
-    background-color: skyblue;
+body{
+    background-color: $creme;
+    color: $grey;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+//polices
+h1, h2, h3{
+    font-family: $title;
+    font-weight: bold;
+}
+
+h4, h5, h6{
+    font-family: $sub-title;
+}
+
+div {
+    font-family: $text;
+}
+
+//boutons
+.btn{
+    border-radius: 0px;
+  }
+
+.btn:hover{
+    background-color: $creme;
+    color:$cherry;
+    border-radius: 3px;
+  }
+
+//link
+a{
+    text-align: center;
+}
+
+a:hover{
+   text-decoration: none;
+}
+
+//message
+.flash{
+    text-align: center;
+}
+
+//error
+.desc-error{
+    text-align: center;
+    font-size: 18px;
+    margin: 10px;
+    margin-top: 30px;
+}
+
+.link-error{
+    text-align: center;
+    font-weight: bold;
+    margin: 30px;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+//title
+.title {
+    color: $cherry;
+    margin-top: 170px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    margin-bottom: 20px;
 }

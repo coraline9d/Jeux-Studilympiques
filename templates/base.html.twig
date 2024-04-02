@@ -11,6 +11,8 @@
 		{{ encore_entry_link_tags('app') }}
 	</head>
 	<body>
+		{% include "include/_navbar.html.twig" %}
 		{% block body %}{% endblock %}
+		{{render (controller('App\\Controller\\RGPDController::footer'))}}
 	</body>
 </html>

@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/payment')]
 class PaymentController extends AbstractController
 {
+    #[IsGranted('ROLE_USER')]
     #[Route('/', name: 'app_payment_index', methods: ['GET'])]
     public function index(PaymentRepository $paymentRepository): Response
     {
@@ -25,57 +26,59 @@ class PaymentController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/new', name: 'app_payment_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, ReservationRepository $reservationRepository): Response
-{
-    // Récupération de l'utilisateur connecté
-    $user = $this->getUser(); 
+    public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, ReservationRepository $reservationRepository): Response
+    {
+        // Récupération de l'utilisateur connecté
+        $user = $this->getUser(); 
 
-    $payment = new Payment();
-    $form = $this->createForm(PaymentType::class, $payment);
-    $form->handleRequest($request);
+        $payment = new Payment();
+        $form = $this->createForm(PaymentType::class, $payment);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Association de l'utilisateur au paiement
-        $payment->setUser($user);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Association de l'utilisateur au paiement
+            $payment->setUser($user);
 
-        // Récupération des réservations de l'utilisateur depuis la base de données
-        $reservations = $reservationRepository->findBy(['user' => $user, 'isPaid' => false]);
+            // Récupération des réservations de l'utilisateur depuis la base de données
+            $reservations = $reservationRepository->findBy(['user' => $user, 'isPaid' => false]);
 
-        foreach ($reservations as $reservation) {
-            // Récupération des offres associées à la réservation
-            $offers = $reservation->getOffer();
+            foreach ($reservations as $reservation) {
+                // Récupération des offres associées à la réservation
+                $offers = $reservation->getOffer();
 
-            foreach ($offers as $offer) {
-                // Mise à jour du compteur de l'offre
-                $offer->setCounter($offer->getCounter() + $reservation->getNumberOfTicket());
+                foreach ($offers as $offer) {
+                    // Mise à jour du compteur de l'offre
+                    $offer->setCounter($offer->getCounter() + $reservation->getNumberOfTicket());
 
-                // Persister l'offre modifiée
-                $entityManager->persist($offer);
+                    // Persister l'offre modifiée
+                    $entityManager->persist($offer);
+                }
+
+                // Association du paiement à la réservation
+                $reservation->setPayment($payment);
+
+                // Mise à jour de l'état de paiement de la réservation
+                $reservation->setIsPaid(true);
+
+                // Dire à Doctrine de gérer (persist) l'entité Reservation
+                $entityManager->persist($reservation);
             }
 
-            // Association du paiement à la réservation
-            $reservation->setPayment($payment);
+            $entityManager->persist($payment);
+            $entityManager->flush();
 
-            // Mise à jour de l'état de paiement de la réservation
-            $reservation->setIsPaid(true);
-
-            // Dire à Doctrine de gérer (persist) l'entité Reservation
-            $entityManager->persist($reservation);
+            return $this->redirectToRoute('app_confirmation', [], Response::HTTP_SEE_OTHER);
         }
 
-        $entityManager->persist($payment);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_confirmation', [], Response::HTTP_SEE_OTHER);
+        return $this->render('payment/new.html.twig', [
+            'payment' => $payment,
+            'form' => $form->createView(),
+        ]);
     }
 
-    return $this->render('payment/new.html.twig', [
-        'payment' => $payment,
-        'form' => $form->createView(),
-    ]);
-}
-
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}', name: 'app_payment_show', methods: ['GET'])]
     public function show(Payment $payment): Response
     {
@@ -84,6 +87,7 @@ public function new(Request $request, EntityManagerInterface $entityManager, Off
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}/edit', name: 'app_payment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Payment $payment, EntityManagerInterface $entityManager): Response
     {
@@ -102,6 +106,7 @@ public function new(Request $request, EntityManagerInterface $entityManager, Off
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}', name: 'app_payment_delete', methods: ['POST'])]
     public function delete(Request $request, Payment $payment, EntityManagerInterface $entityManager): Response
     {

@@ -18,9 +18,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/reservation')]
 class ReservationController extends AbstractController
 {
+    #[IsGranted('ROLE_USER')]
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
     public function index(ReservationRepository $reservationRepository): Response
     {
+        // Récupération de l'utilisateur connecté
+        $user = $this->getUser();
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->getUser() !== $user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         // Récupération de toutes les réservations non payées de la base de données
         $reservations = $reservationRepository->findBy(['isPaid' => false]);
 
@@ -29,11 +41,20 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/new/{offerId?}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, $offerId = null): Response
     {
         // Récupération de l'utilisateur connecté
         $user = $this->getUser();
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->getUser() !== $user) {
+            return $this->redirectToRoute('app_login');
+        }
 
         if ($offerId === null) {
            // Redirigez l'utilisateur vers la page de sélection d'une offre
@@ -81,6 +102,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}', name: 'app_reservation_show', methods: ['GET'])]
     public function show(Reservation $reservation): Response
     {
@@ -89,9 +111,21 @@ class ReservationController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
+        // Récupération de l'utilisateur connecté
+        $user = $this->getUser();
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        
+        if ($this->getUser() !== $user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         // Récupération de l'offre actuelle de la réservation
         $offer = $reservation->getOffer();
     
@@ -114,7 +148,7 @@ class ReservationController extends AbstractController
         ]);
     }
         
-    
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}/update-tickets', name: 'app_reservation_update_tickets', methods: ['POST'])]
     public function updateTickets(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
@@ -125,6 +159,7 @@ class ReservationController extends AbstractController
         return $this->redirectToRoute('app_reservation_index');
     }
      
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
@@ -163,6 +198,7 @@ class ReservationController extends AbstractController
         }
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/total-cost', name: 'reservation_total_cost', methods: ['GET'])]
     public function getTotalCost(ReservationRepository $reservationRepository): Response
     {
