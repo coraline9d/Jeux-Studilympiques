@@ -35,12 +35,17 @@ header img {
     padding-left: 0px;
 }
 
+.card-container .title{
+    margin-top: 70px;
+}
+
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 15px;
-    height: 500px;
+    height: 270px;
     text-align: center;
+    position: relative;
 }
 
 .card-title{
@@ -90,8 +95,7 @@ header img {
 
 .card-container .row{
    display: flex;
-   padding-top:90px;
-   margin:0px;
+   margin:50px;
    flex-wrap: wrap;
    justify-content: center;
 }
@@ -100,14 +104,22 @@ header img {
     margin: 50px 20px;
 }
 
-.carousel-item{
-    width: auto;
-    height: 500px;
-    margin: 50px;
-    padding-top: 30px;
+.container-fluid .title{
+    margin-top: 70px;
 }
 
-.carousel-inner{
+.carousel-item{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding-top: 0px;
+}
+
+#myCarousel .carousel-inner{
+    height: 900px;
+}
+
+#carouselExample .carousel-inner{
     height: 500px;
 }
 
@@ -117,8 +129,10 @@ header img {
   }
 
 .desc {
-    padding-top: 50px;
     padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .desc h1{

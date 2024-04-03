@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Payment{% endblock %}
+{% block title %}New Payment
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Payment</h1>
+	<h1 class="title">PAIEMENT</h1>
 
-    {{ include('payment/_form.html.twig') }}
+	{{ include('payment/_form.html.twig') }}
 
-    <a href="{{ path('app_payment_index') }}">back to list</a>
+	<a href="{{ path('app_payment_index') }}">back to list</a>
 {% endblock %}

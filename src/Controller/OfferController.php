@@ -28,6 +28,21 @@ class OfferController extends AbstractController
         ]);
     } 
 
+    #[Route('/', name: 'app_home')]
+    public function home(ManagerRegistry $managerRegistry): Response
+    {
+        $offer = $managerRegistry->getRepository(Offer::class);
+
+        $solo = $offer->findOneBy(['name' => 'Offre Solo - Pass Olympique Individuel']);
+        $duo = $offer->findOneBy(['name' => 'Offre Duo - Pass Olympique en Duo']);
+        $family = $offer->findOneBy(['name' => 'Offre Familiale - Pass Olympique pour Toute la Famille']);
+        return $this->render('home/index.html.twig', [
+            'solo' => $solo,
+            'duo' => $duo,
+            'family' => $family,
+        ]);
+    }
+
     // #[Route('/')]
     // public function index(EntityManagerInterface $entityManager): Response
     // {

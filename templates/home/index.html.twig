@@ -1,0 +1,156 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block body %}
+	<header>
+		<div
+			id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+			<!-- Slides -->
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="{{ asset('build/images/cover1.png') }}" alt="Jeux Studilympiques - Paris 2024" title="Jeux Studilympiques - Paris 2024">
+					<div class="cover-text">
+						<h1>JEUX STUDILYMPIQUES | PARIS 2024</h1>
+						<h3>RÉFÉRENCE DANS LE SPORT DEPUIS 1896, DE RETOUR À PARIS EN 2024</h3>
+						<a href="#sports" class="btn btn-primary btn-lg">APERÇU DES SPORTS</a>
+						<a href="{{path('app_offer')}}" class="btn btn-primary btn-lg">RÉSERVER</a>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="{{ asset('build/images/cover2.png') }}" alt="Jeux Studilympiques - Paris 2024" title="Jeux Studilympiques - Paris 2024">
+					<div class="cover-text">
+						<h1>JEUX STUDILYMPIQUES | PARIS 2024</h1>
+						<h3>RÉFÉRENCE DANS LE SPORT DEPUIS 1896, DE RETOUR À PARIS EN 2024</h3>
+						<a href="#sports" class="btn btn-primary btn-lg">APERÇU DES ACTIVITÉS</a>
+						<a href="{{path('app_offer')}}" class="btn btn-primary btn-lg">RÉSERVER</a>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="{{ asset('build/images/cover3.png') }}" alt="Jeux Studilympiques - Paris 2024" title="Jeux Studilympiques - Paris 2024">
+					<div class="cover-text">
+						<h1>JEUX STUDILYMPIQUES | PARIS 2024</h1>
+						<h3>RÉFÉRENCE DANS LE SPORT DEPUIS 1896, DE RETOUR À PARIS EN 2024</h3>
+						<a href="#sports" class="btn btn-primary btn-lg">APERÇU DES ACTIVITÉS</a>
+						<a href="{{path('app_offer')}}" class="btn btn-primary btn-lg">RÉSERVER</a>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="{{ asset('build/images/cover4.png') }}" alt="Jeux Studilympiques - Paris 2024" title="Jeux Studilympiques - Paris 2024">
+					<div class="cover-text">
+						<h1>JEUX STUDILYMPIQUES | PARIS 2024</h1>
+						<h3>RÉFÉRENCE DANS LE SPORT DEPUIS 1896, DE RETOUR À PARIS EN 2024</h3>
+						<a href="#sports" class="btn btn-primary btn-lg">APERÇU DES ACTIVITÉS</a>
+						<a href="{{path('app_offer')}}" class="btn btn-primary btn-lg">RÉSERVER</a>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</a>
+			<a class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</a>
+		</div>
+	</div>
+</header>
+<main>
+	<article>
+		<section>
+			<div class="card-container ">
+				<h1 class="title">OFFRES</h1>
+				<div class="row">
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="card">
+							<img src="{{ asset('build/images/card1.png') }}" alt="Champagne - Quai Antique" title="Champagne - Quai Antique" class="card-img-top">
+							<div class="card-body">
+								<h3 class="card-title">
+									{{solo.name}}
+								</h3>
+							</div>
+							<a href="{{path('app_offer')}}" class="btn btn-primary reserve-button">
+								RÉSERVER
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="card">
+							<img src="{{ asset('build/images/card2.png') }}" alt="Poisson - Quai Antique" title="Poisson - Quai Antique" class="card-img-top">
+							<div class="card-body">
+								<h3 class="card-title">
+									{{duo.name}}
+								</h3>
+							</div>
+							<a href="{{path('app_offer')}}" class="btn btn-primary reserve-button">
+								RÉSERVER
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="card" id="sports">
+							<img src="{{ asset('build/images/card3.png') }}" alt="Burger - Quai Antique" title="Burger - Quai Antique" class="card-img-top">
+							<div class="card-body">
+								<h3 class="card-title">
+									{{family.name}}
+								</h3>
+							</div>
+							<a href="{{path('app_offer')}}" class="btn btn-primary reserve-button">
+								RÉSERVER
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="container-fluid">
+				<h1 class="title">APERÇU DES SPORTS</h1>
+				<div class="row">
+					<div class="col-lg-6 col-md-12 col-sm-12">
+						<div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<img src="{{ asset('build/images/car1.png') }}" alt="Jeux Studilympiques - Paris 2024" title="Jeux Studilympiques - Paris 2024">
+								</div>
+								<div class="carousel-item">
+									<img src="{{ asset('build/images/car2.png') }}" alt="Jeux Studilympiques - Paris 2024" title="Jeux Studilympiques - Paris 2024">
+								</div>
+								<div class="carousel-item">
+									<img src="{{ asset('build/images/car3.png') }}" alt="Jeux Studilympiques - Paris 2024" title="Jeux Studilympiques - Paris 2024">
+								</div>
+							</div>
+							<a class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</a>
+							<a class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12 col-sm-12 desc">
+						<h3>Tennis</h3>
+						<h5>Lieu : Roland Garros
+						</h5>
+						<p>
+							Le tennis aux Jeux Olympiques réunit les plus grands champions mondiaux dans des matchs acharnés en simple et en double, offrant des échanges intenses et des moments de suspense captivants.
+						</p>
+						<h3>Natation</h3>
+						<h5>Lieu : La Seine</h5>
+						<p>
+							La natation olympique propose une variété d'épreuves, allant des courses de sprint au crawl aux défis d'endurance du marathon en eau libre, où les nageurs rivalisent pour atteindre la ligne d'arrivée en quête de médailles.
+						</p>
+						<h3>Athlétisme</h3>
+						<h5>Lieu : Stade de France</h5>
+						<p>L'athlétisme aux Jeux Olympiques présente une gamme d'épreuves allant des sprints fulgurants du 100 mètres aux sauts spectaculaires en longueur et en hauteur, offrant une vitrine pour les athlètes les plus polyvalents et les plus talentueux du monde.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</article>
+</main>{% endblock %}

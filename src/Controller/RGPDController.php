@@ -26,12 +26,6 @@ class RGPDController extends AbstractController
         return $this->render('RGPD/mentions.html.twig', []);
     }
 
-    #[Route('/', name: 'app_home')]
-    public function home(): Response 
-    {
-        return $this->render('include/_navbar.html.twig',[]);
-    }
-
     public function footer(): Response
     {
         return $this->render('include/_footer.html.twig', []);
