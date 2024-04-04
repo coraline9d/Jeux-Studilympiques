@@ -3,7 +3,6 @@
 @import'./navbar.scss';
 @import'./footer.scss';
 @import'./home.scss';
-@import'./offer.scss';
 @import'./form.scss';
 @import'./card.scss';
 
@@ -34,13 +33,13 @@ div {
 
 //boutons
 .btn{
-    border-radius: 0px;
+    border-radius: 7px;
   }
 
 .btn:hover{
     background-color: $creme;
     color:$cherry;
-    border-radius: 3px;
+    border-radius: 7px;
   }
 
 //link
