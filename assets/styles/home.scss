@@ -126,7 +126,14 @@ header img {
 .carousel-item img {
     width: 100%;
     max-height: 100%;
-  }
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 50px; /* Définit la largeur du bouton */
+    height: 50px; /* Définit la hauteur du bouton */
+    padding: 10px; /* Ajoute un peu d'espace autour des boutons */
+    top: calc(50% - 25px); /* Positionne le bouton au milieu du carousel */
+}
 
 .desc {
     padding-right: 10px;

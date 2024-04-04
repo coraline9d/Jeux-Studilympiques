@@ -16,9 +16,23 @@ class OfferController extends AbstractController
         $this->entityManager = $entityManager;
     }
     
+    #[IsGranted('ROLE_USER')]
     #[Route('/offre', name: 'app_offer')]
     public function offer(ManagerRegistry $managerRegistry): Response
     {
+        // Récupération de l'utilisateur connecté
+        $user = $this->getUser();
+
+        if (!$this->getUser()) {
+            $this->addFlash('warning', 'Vous devez posséder un compte pour accéder aux offres.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->getUser() !== $user) {
+            $this->addFlash('warning', 'Vous devez posséder un compte pour accéder aux offres.');
+            return $this->redirectToRoute('app_login');
+        }
+
         $offer = $this->entityManager
             ->getRepository(Offer::class)
             ->findAll();

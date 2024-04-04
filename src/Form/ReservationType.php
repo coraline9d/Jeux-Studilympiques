@@ -21,23 +21,6 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('number_of_ticket', IntegerType::class, [
-            'label' => 'Nombre de Pass :',
-            'attr' => [
-                'id' => 'number_of_ticket',
-                'min' => 1,
-                'placeholder' => 'Entrez nombre de Pass'
-            ],
-            'constraints' => [
-                new LessThanOrEqual([
-                    'value' => 30,
-                    'message' => 'Vous ne pouvez pas réserver plus de 30 pass'
-                ]),
-                new NotBlank([
-                    'message' => 'Veuillez renseigner le nombre de pass s\'il vous plait'
-                ])
-            ],
-        ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom :',
                 'constraints' => [
@@ -62,6 +45,23 @@ class ReservationType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('number_of_ticket', IntegerType::class, [
+            'label' => 'Nombre de Pass :',
+            'attr' => [
+                'id' => 'number_of_ticket',
+                'min' => 1,
+                'placeholder' => 'Entrez nombre de Pass'
+            ],
+            'constraints' => [
+                new LessThanOrEqual([
+                    'value' => 30,
+                    'message' => 'Vous ne pouvez pas réserver plus de 30 pass'
+                ]),
+                new NotBlank([
+                    'message' => 'Veuillez renseigner le nombre de pass s\'il vous plait'
+                ])
+            ],
+        ])
             ->add('offer', CollectionType::class, [
                 'entry_type' => EntityType::class,
                 'entry_options' => [
