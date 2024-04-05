@@ -1,0 +1,67 @@
+#cookie-banner {
+    position: fixed;
+    display: none;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $navbar;
+    color: $creme;
+    padding: 7px;
+    padding-bottom: 2px;
+  }
+
+.des-cookie{
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.btn-cookie{
+    text-align: center;
+}
+
+#accept-cookies {
+    padding: 3px 12px;
+    background-color: rgb(12, 101, 12);
+    margin: 0;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-left: 2px;
+}
+
+#refuse-cookies {
+    padding: 3px 12px;
+    background-color: rgb(148, 25, 25);
+    margin: 0;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-right: 2px;
+}
+
+#accept-cookies:hover {
+color: $creme;
+background-color: rgba(12, 101, 12,0.7);
+}
+
+#refuse-cookies:hover {
+color: $creme;
+background-color: rgba(148, 25, 25, 0.7);
+}
+
+//for the phone
+@media (max-width: 767px) {
+    .des-cookie{
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    #accept-cookies {
+        padding: 2px 8px;
+        font-size: 12px;
+    }
+    
+    #refuse-cookies {
+        padding: 2px 8px;
+        font-size: 12px;
+    }
+}
