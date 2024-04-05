@@ -28,9 +28,12 @@
 						</form>
 					</td>
 					<td>
-						<a href="{{ path('app_reservation_show', {'id': reservation.id}) }}">show</a>
-						<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
-						<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }}" class="delete-button" data-token="{{ csrf_token('delete' ~ reservation.id) }}">supprimer</a>
+						<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" alt="Modifier" title="Modifier">
+							<i class="fas fa-edit cart-fa"></i>
+						</a>
+						<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }}" class="delete-button" data-token="{{ csrf_token('delete' ~ reservation.id) }}" alt="Supprimer" title="Supprimer">
+							<i class="fa fa-trash cart-fa"></i>
+						</a>
 					</td>
 					{% for offer in reservation.offer %}
 						{% set totalCost = totalCost + (offer.price * reservation.numberOfTicket) %}
@@ -42,10 +45,12 @@
 					</tr>
 				</tr>
 			{% endfor %}
-			<tr>
+			<tr></tr>
+			<tr class="total-row">
+				<td colspan="3"></td>
 				<td class="cart-total">
-					Total :</td>
-				<td id="total-cost">{{ totalCost }}</td>
+					TOTAL :</td>
+				<td id="total-cost">{{ totalCost }}€</td>
 			</tr>
 		</tbody>
 	</tbody>

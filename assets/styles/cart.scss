@@ -1,16 +1,55 @@
+.table {
+    text-align: center;
+    border: none ;
+}
+
+.table th, .table td {
+    border: none;
+}
+
+.cart-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
 .cart-form input[type="number"], .cart-form input[type="submit"] {
     display: inline-block;
     vertical-align: middle;
 }
-
 
 .forminput.cart-pass[type="number"]{
     padding: 5px;
     width: 50px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-right: 5px;
 }
 
 .cart-shopping{
     padding:30px;
+}
+
+.cart-fa{
+    padding: 10px;
+    font-size: medium;
+}
+
+.cart-fa:hover{
+    color: black ;
+}
+
+.total-row{
+    text-align: center;
+}
+
+.cart-total{
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+}
+
+#total-cost{
+    font-size: large;
 }
