@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block title %}Page Portégée
+{% endblock %}
+{% block body %}
+	<h1 class="title">PAGE PROTÉGÉE</h1>
+	<div>
+		<p class="desc-error">
+			Vous n'avez pas accès à cette page.
+		</p>
+		<p class="link-error">
+			En revanche, vous pouvez consulter les offres que nous proposons grâce à ce
+			<a href="{{path('app_offer')}}">lien</a>.
+		</p>
+	</div>
+{% endblock %}

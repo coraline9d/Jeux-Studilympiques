@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+{% block title %}Page Introuvable
+{% endblock %}
+{% block body %}
+	<h1 class="title">PAGE INTROUVABLE</h1>
+	<div>
+		<p class="desc-error">
+			La page que vous souhaitez consulter n'est pas disponible pour le moment.
+		</p>
+		<p class="link-error">
+			En revanche, vous pouvez consulter les offres que nous proposons grâce à ce
+			<a href="{{path('app_offer')}}">lien</a>.
+		</p>
+	</div>
+{% endblock %}
