@@ -108,6 +108,11 @@ button:hover {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.hidden {
+    display: none;
+}
+
+
 //for the normal phone
 @media (max-width: 767px) {    
     .form-bloc{
