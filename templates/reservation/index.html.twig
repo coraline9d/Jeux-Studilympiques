@@ -41,7 +41,6 @@
 				{% else %}
 					<tr>
 						<td colspan="8">Votre panier est actuellement vide</td>
-						<button onclick="location.href='{{ path('app_reservation_new') }}'" type="button">Continuer mon shopping</button>
 					</tr>
 				</tr>
 			{% endfor %}
@@ -55,5 +54,9 @@
 		</tbody>
 	</tbody>
 </table>
-<button onclick="location.href='{{ path('app_payment_new', {'reservations': reservations}) }}'" type="button">PROCÉDER AU PAIEMENT</button>
-<a class="cart-shopping" href="{{ path('app_reservation_new') }}">Continuer mon shopping</a>{% endblock %}
+{% if reservations|length > 0 %}
+	<button onclick="location.href='{{ path('app_payment_new', {'reservations': reservations}) }}'" type="button">PROCÉDER AU PAIEMENT</button>
+	<a class="cart-shopping" href="{{ path('app_reservation_new') }}">Continuer mon shopping</a>
+{% else %}
+	<button onclick="location.href='{{ path('app_reservation_new') }}'" type="button">Commencer mon shopping</button>
+{% endif %}{% endblock %}

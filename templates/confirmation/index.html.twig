@@ -4,20 +4,42 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="title">CONFIRMATION</h1>
-	<ul>
-		{% for offerDetailsPerReservation in offerDetails %}
-			{% for offerDetail in offerDetailsPerReservation %}
-				<li>
-					<strong>Offre :</strong>
-					{{ offerDetail.offerName }}
-					<br>
-					<strong>Quantité :</strong>
-					{{ offerDetail.numberOfTickets }}
-				</li>
-			{% endfor %}
-		{% endfor %}
-	</ul>
+	<div class="container">
+		<h1 class="title">CONFIRMATION DE COMMANDE</h1>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="card no-effect">
+					<div class="card-body">
+						<h3 class="card-title">Félicitations
+							{{user.lastname}}
+							{{user.firstname}}, votre paiment a été validé.</h3>
+						<h5>Téléchargez votre billet, sinon vous ne pourrez pas assister à l'évènement :</h5>
+						<a href="{{ url('app_confirmation_ticket') }}" class="btn btn-primary">Mon billet</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="card no-effect">
+					<div class="card-body">
+						<h5 class="card-title">Récapitulatif de votre commande :</h5>
+						<ul class="list-group list-group-flush">
+							{% for offerDetailsPerReservation in offerDetails %}
+								{% for offerDetail in offerDetailsPerReservation %}
+									<li class="list-group-item">
+										<strong>Offre :</strong>
+										{{ offerDetail.offerName }}
+										<br>
+										<strong>Quantité :</strong>
+										{{ offerDetail.numberOfTickets }}
+									</li>
+								{% endfor %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row"></div>
+	</div>
 
-	<a href="{{ url('app_confirmation_ticket') }}">Télécharger votre billet</a>
 {% endblock %}

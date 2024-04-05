@@ -65,6 +65,7 @@ class ConfirmationController extends AbstractController
 
         return $this->render('confirmation/index.html.twig', array(
             'offerDetails' => $offerDetails, 
+            'user' => $user,
         ));
     }
 
@@ -147,6 +148,7 @@ class ConfirmationController extends AbstractController
             'finalKey' => $finalKey,
             'offerDetails' => $offerDetails,
             'qrCodeImage' => $qrCodeImage, 
+            'user' => $user,
         ));
 
         // Configure Dompdf according to your needs

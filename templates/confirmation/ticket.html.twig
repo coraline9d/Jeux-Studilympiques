@@ -1,23 +1,37 @@
 {% block body %}
-	<h2>Offres</h2>
-	<ul>
-		{% for offerDetailsPerReservation in offerDetails %}
-			{% for offerDetail in offerDetailsPerReservation %}
-				<li>
-					<strong>Offre :</strong>
-					{{ offerDetail.offerName }}
-					<br>
-					<strong>Quantité :</strong>
-					{{ offerDetail.numberOfTickets }}
-				</li>
-			{% endfor %}
-		{% endfor %}
-	</ul>
-
-	<h2>QR Code</h2>
-	<div>
-		<img src="{{ qrCodeImage|raw }}" alt="QR Code" width="200">
-	</div>
-
-	<a href="{{ url('app_confirmation') }}">Retour à la confirmation</a>
+	<table style="width:100%;">
+		<tr>
+			<td colspan="2" style="text-align:center;">
+				<h2>Billet de
+					{{ user.lastName }}
+					{{ user.firstName }}
+				</h2>
+			</td>
+		</tr>
+		<td style="width:50%; text-align:center;">
+			<h2>Récapitulatif de la commande</h2>
+			<ul>
+				{% for offerDetailsPerReservation in offerDetails %}
+					{% for offerDetail in offerDetailsPerReservation %}
+						<li>
+							<strong>Offre :</strong>
+							{{ offerDetail.offerName }}
+							<br>
+							<strong>Quantité :</strong>
+							{{ offerDetail.numberOfTickets }}
+						</li>
+					{% endfor %}
+				{% endfor %}
+			</ul>
+		</td>
+		<td style="width:50%; text-align:center;">
+			<img src="{{ qrCodeImage|raw }}" alt="QR Code" width="200">
+		</td>
+		<tr>
+			<td colspan="2" style="text-align:center;">
+				<h2>Les Jeux Studilympiques vous remercient.
+				</h2>
+			</td>
+		</tr>
+	</table>
 {% endblock %}
