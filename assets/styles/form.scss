@@ -52,16 +52,6 @@ form input[type="password"],form input[type="text"],form input[type="number"]{
     border-radius: 5px;
 }
 
-form input[type="date"]
- {
-    padding: 0px;
-    width: 350px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 37px; 
-    line-height: 35px; 
-}
-
 form label:last-child{
     margin-top: 0px;
 }
@@ -135,11 +125,6 @@ button:hover {
     }
     
     form input[type="password"],form input[type="text"],form input[type="number"]{
-        width: 300px;
-    }
-    
-    form input[type="date"]
-     {
         width: 300px;
     }
 }

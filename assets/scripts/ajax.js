@@ -23,16 +23,15 @@ document.addEventListener("DOMContentLoaded", function () {
           .then((data) => {
             if (data.status === "success") {
               reservationRow.remove(); // Supprimez la ligne de réservation de la table
-              // Mettez à jour le prix total affiché sur la page avec le nouveau prix total reçu de la réponse
-              totalCostElement.textContent = data.totalCost;
+
               // Appel de la méthode totalCost pour recalculer le prix total après la suppression
-              fetch("/reservation/total-cost")
+              fetch("/reservation/total-cost?_=" + new Date().getTime())
                 .then((response) => response.json())
                 .then((data) => {
                   // Accédez à la propriété totalCost de l'objet JSON
-                  let totalCost = data.totalCost;
+                  let totalCost = data; // Utilisez `data` directement
                   // Mettez à jour le coût total affiché sur la page avec le nouveau prix total
-                  totalCostElement.textContent = totalCost;
+                  totalCostElement.textContent = totalCost + "€";
                 })
                 .catch((error) => {
                   console.error(

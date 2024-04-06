@@ -42,7 +42,7 @@ class ReservationController extends AbstractController
     }    
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/new/{offerId?}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
+    #[Route('/nouvelle/{offerId?}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, $offerId = null): Response
     {
         // Récupération de l'utilisateur connecté
@@ -103,7 +103,7 @@ class ReservationController extends AbstractController
     }
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/{id}/edit', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edition', name: 'app_reservation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
         // Récupération de l'utilisateur connecté
@@ -177,6 +177,7 @@ class ReservationController extends AbstractController
             // Appel de la méthode getTotalCost pour obtenir le coût total après la suppression
             $totalCost = $this->getTotalCost($reservationRepository)->getContent();
 
+
             // Validation de la transaction
             $entityManager->commit();
 
@@ -193,8 +194,11 @@ class ReservationController extends AbstractController
     #[Route('/total-cost', name: 'reservation_total_cost', methods: ['GET'])]
     public function getTotalCost(ReservationRepository $reservationRepository): Response
     {
+         // Récupération de l'utilisateur connecté
+         $user = $this->getUser();
+         
         // Récupérez toutes les réservations non payées
-        $reservations = $reservationRepository->findBy(['isPaid' => false]);
+        $reservations = $reservationRepository->findBy(['isPaid' => false, 'user' => $user]);
 
         $totalCost = 0;
 

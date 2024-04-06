@@ -8,18 +8,18 @@
 				</h2>
 			</td>
 		</tr>
-		<td style="width:50%; text-align:center;">
-			<h2>Récapitulatif de la commande</h2>
+		<td style="width:50%; text-align:left;">
+			<h2>Récapitulatif de la commande :</h2>
 			<ul>
 				{% for offerDetailsPerReservation in offerDetails %}
 					{% for offerDetail in offerDetailsPerReservation %}
-						<li>
+						<div>
 							<strong>Offre :</strong>
 							{{ offerDetail.offerName }}
 							<br>
 							<strong>Quantité :</strong>
 							{{ offerDetail.numberOfTickets }}
-						</li>
+						</div>
 					{% endfor %}
 				{% endfor %}
 			</ul>

@@ -14,11 +14,11 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/payment')]
+#[Route('/paiment')]
 class PaymentController extends AbstractController
 {
     #[IsGranted('ROLE_USER')]
-    #[Route('/new', name: 'app_payment_new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'app_payment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, OfferRepository $offerRepository, ReservationRepository $reservationRepository): Response
     {
         // Récupération de l'utilisateur connecté
