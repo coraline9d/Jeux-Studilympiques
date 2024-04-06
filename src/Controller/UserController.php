@@ -25,40 +25,44 @@ class UserController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-
+    
         if ($this->getUser() !== $user) {
             return $this->redirectToRoute('app_login');
         }
-
+    
+        // Cloner l'entité User avant de la modifier
+        $originalUser = clone $user;
+    
         $form = $this->createForm(UserType::class, $user);
-
+    
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $entityManager->persist($user);
             $entityManager->flush();
-
-            // Checking changes to the User entity
-            $changes = $entityManager->getUnitOfWork()->getEntityChangeSet($user);
-            if (!empty($changes)) {
-                // Changes have been made
+    
+            // Comparer l'entité User clonée avec l'entité User modifiée
+            if ($user != $originalUser) {
+                // Des modifications ont été apportées
                 $this->addFlash(
                     'success',
                     'Votre profil a été modifié'
                 );
             } else {
-                // No changes have been made
+                // Aucune modification n'a été apportée
                 $this->addFlash(
                     'error',
                     'Aucune modification n\'a été apportée à votre profil'
                 );
             }
+    
             return $this->redirectToRoute('app_utilisateur_profile');
         }
         return $this->render('user/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+    
 
     #[IsGranted('ROLE_USER')]
     #[Route('/modification-mot-de-passe', name: 'app_utilisateur_password', methods: ['GET', 'POST'])]

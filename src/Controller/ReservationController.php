@@ -24,22 +24,22 @@ class ReservationController extends AbstractController
     {
         // Récupération de l'utilisateur connecté
         $user = $this->getUser();
-
+    
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-
+    
         if ($this->getUser() !== $user) {
             return $this->redirectToRoute('app_login');
         }
-
-        // Récupération de toutes les réservations non payées de la base de données
-        $reservations = $reservationRepository->findBy(['isPaid' => false]);
-
+    
+        // Récupération des réservations non payées de l'utilisateur connecté
+        $reservations = $reservationRepository->findBy(['isPaid' => false, 'user' => $user]);
+    
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservations,
         ]);
-    }
+    }    
 
     #[IsGranted('ROLE_USER')]
     #[Route('/new/{offerId?}', name: 'app_reservation_new', methods: ['GET', 'POST'])]

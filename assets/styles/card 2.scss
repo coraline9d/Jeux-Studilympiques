@@ -1,0 +1,111 @@
+.pass-card{
+    padding: 30px; 
+}
+
+.details-card{
+   break-inside: avoid;    
+   margin-left: 10px;
+   margin-right: 10px;
+   margin-bottom: 50px;
+}
+
+.info-card{
+   margin-bottom: 20px;
+}
+
+.name-price{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.name-card{
+   margin-bottom: 2px;
+   white-space: pre-wrap;
+}
+
+.price-card{
+   margin-bottom: 2px;
+}
+
+.name-category {
+   text-align: center;
+   margin-bottom: 30px;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.desc-card {
+   color:$cherry;
+   font-size: 12px;
+   max-height: 100px; /* Limit the height of the contents of the dishes */
+   overflow-y: auto; /* Add scroll if needed */
+}
+
+.black-card{
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+   transition: 0.3s;
+   border-radius: 15px;
+   height: 270px;
+   text-align: center;
+   position: relative;
+}
+
+.offer-card{
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+   transition: 0.3s;
+   border-radius: 15px;
+   height: 500;
+   text-align: center;
+   position: relative;
+}
+
+.black-card:hover::after{
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   transition: 0.3s;
+   border-radius: 17px;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.5);
+   z-index: 1;
+}
+
+.reserve-button {
+   display: none;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 2;
+   font-size: 1.2em; /* Ajustez la taille de la police comme vous le souhaitez */
+   padding: 10px 15px; /* Ajustez le remplissage pour changer la taille du bouton */
+   width: auto; /* Ajustez la largeur comme vous le souhaitez */
+}
+
+
+.card:hover .reserve-button {
+   display: block;
+}
+
+//for the desktop
+@media (min-width: 1025px) {
+   .pass-card {
+     column-count: 3;
+   }
+ }
+ 
+//for the tablet
+@media (min-width: 768px) and (max-width: 1024px) {
+ .pass-card {
+   column-count: 2;
+ }
+}
+ 
+//for the phone
+@media (max-width: 767px) {
+ .pass-card {
+   column-count: 1;
+ }
+}
