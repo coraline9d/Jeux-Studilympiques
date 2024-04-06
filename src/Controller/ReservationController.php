@@ -81,7 +81,7 @@ class ReservationController extends AbstractController
 
 
         $form = $this->createForm(ReservationType::class, $reservation, [
-        'selected_offer' => [$offer], // Passer l'offre sélectionnée comme une option au formulaire
+            'selected_offer' => [$offer], // Passer l'offre sélectionnée comme une option au formulaire
         ]);;
      
         $form->handleRequest($request);
@@ -154,13 +154,6 @@ class ReservationController extends AbstractController
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
-        // Vérification du jeton CSRF
-        if (!$this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
-            // Retourner une réponse d'erreur ou rediriger si le jeton CSRF est invalide
-            // Par exemple, return new Response('Invalid CSRF Token', Response::HTTP_BAD_REQUEST);
-            // ou return $this->redirectToRoute('app_reservation_index');
-        }
-
         // Début de la transaction
         $entityManager->beginTransaction();
         try {

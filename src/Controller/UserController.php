@@ -85,20 +85,20 @@ class UserController extends AbstractController
                     $manager->persist($user);
                     $manager->flush();
 
-                    // Add a flash success message
+                    // Message de succès
                     $this->addFlash('success', 'Votre mot de passe a été modifié avec succès !');
 
                     return $this->redirectToRoute('app_utilisateur_profile');
                 } else {
-                    // The new password is identical to the old one
+                    // Même mot de passe que l'ancien
                     $this->addFlash('warning', 'Le nouveau mot de passe doit être différent de l\'ancien');
                 }
             } else {
-                // The current password is incorrect
+                // Mot de passe incorrect
                 $this->addFlash('error', 'Le mot de passe actuel est incorrect');
             }
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-            // The form is invalid
+            // Formulaire invalide
             $this->addFlash('error', 'Le formulaire est invalide');
         }
         return $this->render('user/editpassword.html.twig', [

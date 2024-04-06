@@ -151,43 +151,44 @@ class ConfirmationController extends AbstractController
             'user' => $user,
         ));
 
-        // Configure Dompdf according to your needs
+        // Configuration de Dompdf 
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Crée une nouvelle instance de Dompdf avec les options spécifiées
+        $dompdf = new Dompdf($pdfOptions); 
 
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-       // Render the HTML as PDF
-        $dompdf->render();
-
-        // Generate a unique filename
-        $filename = uniqid().'.pdf';
-
-        // Define the path where you want to save the PDF
-        $pdfPath = $this->getParameter('kernel.project_dir').'/public/pdf/'.$filename;
-
-        // Save the PDF to a file
-        file_put_contents($pdfPath, $dompdf->output());
-
-        // Set the path of the PDF file in the reservation
-        foreach ($reservations as $reservation) {
-            $reservation->setTicket($pdfPath);
-            $entityManager->persist($reservation);
+        // Charge le HTML à convertir en PDF
+        $dompdf->loadHtml($html); 
+        
+        // Définit le format du papier sur lequel le PDF sera imprimé et son orientation
+        $dompdf->setPaper('A4', 'portrait'); 
+        
+        // Génère le PDF à partir du HTML chargé
+        $dompdf->render(); 
+        
+        // Génère un nom de fichier unique pour le PDF
+        $filename = uniqid().'.pdf'; 
+        
+        // Définit le chemin où le PDF sera enregistré
+        $pdfPath = $this->getParameter('kernel.project_dir').'/public/pdf/'.$filename; 
+        
+        // Enregistre le PDF généré dans le chemin spécifié
+        file_put_contents($pdfPath, $dompdf->output()); 
+        
+        // Pour chaque réservation dans la liste des réservations
+        foreach ($reservations as $reservation) { 
+            // Définit le chemin du PDF comme ticket pour la réservation
+            $reservation->setTicket($pdfPath); 
+            // Prépare la réservation pour être enregistrée dans la base de données
+            $entityManager->persist($reservation); 
         }
-
-        // Flush all changes to the database
-        $entityManager->flush();
-
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream($filename, [
-            "Attachment" => true
-        ]);
+        
+        // Enregistre toutes les réservations préparées dans la base de données
+        $entityManager->flush(); 
+        
+        // Envoie le PDF généré au navigateur pour être téléchargé
+        $dompdf->stream($filename, [ "Attachment" => true ]); 
+        
     }
 }
