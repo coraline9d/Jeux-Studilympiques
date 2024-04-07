@@ -4,10 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="title">MODIFICATION DE MA RÉSERVATION</h1>
+	<section>
+		<article>
+			<h1 class="title">MODIFICATION DE MA RÉSERVATION</h1>
 
-	{{ include('reservation/_form.html.twig', {'button_label': 'MODIFIER'}) }}
+			{{ include('reservation/_form.html.twig', {'button_label': 'MODIFIER'}) }}
 
-	<a href="{{ path('app_reservation_index') }}">Retour au Panier</a>
-
+			<a href="{{ path('app_reservation_index') }}">Retour au Panier</a>
+		</article>
+	</section>
 {% endblock %}

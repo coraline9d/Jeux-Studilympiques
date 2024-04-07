@@ -4,9 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="title">PAIEMENT</h1>
+	<section>
+		<article class="payment-end">
+			<h1 class="title">PAIEMENT</h1>
 
-	{{ include('payment/_form.html.twig') }}
+			{{ include('payment/_form.html.twig') }}
 
-	<a href="{{ path('app_reservation_index') }}" class="cart-shopping">Retour au Panier</a>
+			<a href="{{ path('app_reservation_index') }}" class="payment-shopping">Retour au Panier</a>
+		</article>
+	</section>
 {% endblock %}

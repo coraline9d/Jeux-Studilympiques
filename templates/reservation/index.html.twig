@@ -4,59 +4,67 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="title">PANIER</h1>
+	<section>
+		<article>
+			<h1 class="title">PANIER</h1>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>PRÉNOM</th>
-				<th>NOM</th>
-				<th>NOMBRE DE PASS</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			{% set totalCost = 0 %}
-			{% for reservation in reservations %}
-				<tr>
-					<td>{{ reservation.firstname }}</td>
-					<td>{{ reservation.lastname }}</td>
-					<td>
-						<form action="{{ path('app_reservation_update_tickets', {'id': reservation.id}) }}" method="post" class="cart-form">
-							<input type="number" name="numberOfTicket" value="{{ reservation.numberOfTicket }}" min="1" max="30" class="forminput cart-pass">
-							<input type="submit" class="btn btn-primary btn-sm" value="Mettre à jour">
-						</form>
-					</td>
-					<td>
-						<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" alt="Modifier" title="Modifier">
-							<i class="fas fa-edit cart-fa"></i>
-						</a>
-						<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }}" class="delete-button" data-token="{{ csrf_token('delete' ~ reservation.id) }}" alt="Supprimer" title="Supprimer">
-							<i class="fa fa-trash cart-fa"></i>
-						</a>
-					</td>
-					{% for offer in reservation.offer %}
-						{% set totalCost = totalCost + (offer.price * reservation.numberOfTicket) %}
-					{% endfor %}
-				{% else %}
+			<table class="table">
+				<thead>
 					<tr>
-						<td colspan="8">Votre panier est actuellement vide</td>
+						<th>PRÉNOM</th>
+						<th>NOM</th>
+						<th>NOMBRE DE PASS</th>
+						<th></th>
 					</tr>
-				</tr>
-			{% endfor %}
-			<tr></tr>
-			<tr class="total-row">
-				<td colspan="5"></td>
-				<td class="cart-total">
-					TOTAL :</td>
-				<td id="total-cost">{{ totalCost }}€</td>
-			</tr>
-		</tbody>
-	</tbody>
-</table>
-{% if reservations|length > 0 %}
-	<button onclick="location.href='{{ path('app_payment_new', {'reservations': reservations}) }}'" type="button">PROCÉDER AU PAIEMENT</button>
-	<a class="cart-shopping" href="{{ path('app_reservation_new') }}">Continuer mon shopping</a>
-{% else %}
-	<button onclick="location.href='{{ path('app_reservation_new') }}'" type="button">Commencer mon shopping</button>
-{% endif %}{% endblock %}
+				</thead>
+				<tbody>
+					{% set totalCost = 0 %}
+					{% for reservation in reservations %}
+						<tr>
+							<td>{{ reservation.firstname }}</td>
+							<td>{{ reservation.lastname }}</td>
+							<td>
+								<form action="{{ path('app_reservation_update_tickets', {'id': reservation.id}) }}" method="post" class="cart-form">
+									<input type="number" name="numberOfTicket" value="{{ reservation.numberOfTicket }}" min="1" max="30" class="forminput cart-pass">
+									<input type="submit" class="btn btn-primary btn-sm" value="Mettre à jour">
+								</form>
+							</td>
+							<td>
+								<a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" alt="Modifier" title="Modifier">
+									<i class="fas fa-edit cart-fa"></i>
+								</a>
+								<a href="{{ path('app_reservation_delete', {'id': reservation.id}) }}" class="delete-button" data-token="{{ csrf_token('delete' ~ reservation.id) }}" alt="Supprimer" title="Supprimer">
+									<i class="fa fa-trash cart-fa"></i>
+								</a>
+							</td>
+							{% for offer in reservation.offer %}
+								{% set totalCost = totalCost + (offer.price * reservation.numberOfTicket) %}
+							{% endfor %}
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="8">Votre panier est actuellement vide</td>
+						</tr>
+					{% endfor %}
+					<tr></tr>
+					<tr class="total-row">
+						<td colspan="5" class="d-none d-sm-table-cell"></td>
+						<td class="cart-total">TOTAL :</td>
+						<td id="total-cost">{{ totalCost }}€</td>
+					</tr>
+				</tbody>
+			</table>
+		</article>
+
+		{% if reservations|length > 0 %}
+			<article class="cart-end">
+				<button onclick="location.href='{{ path('app_payment_new', {'reservations': reservations}) }}'" type="button">PROCÉDER AU PAIEMENT</button>
+				<a class="cart-shopping" href="{{ path('app_reservation_new') }}">Continuer mon shopping</a>
+			</article>
+		{% else %}
+			<article class="cart-end">
+				<button onclick="location.href='{{ path('app_reservation_new') }}'" type="button" class="cart-shopping">COMMENCER MON SHOPPING</button>
+			</article>
+		{% endif %}
+	</section>
+{% endblock %}

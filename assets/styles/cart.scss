@@ -27,8 +27,14 @@
     margin-right: 5px;
 }
 
+.cart-end{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+
 .cart-shopping{
-    margin:30px;
+    margin-top: 10px;
 }
 
 .cart-fa{
@@ -52,4 +58,12 @@
 
 #total-cost{
     font-size: large;
+}
+
+//for the phone
+@media (max-width: 767px) {
+    .cart-total, #total-cost {
+        width: 100%;
+        text-align: center;
+    }
 }

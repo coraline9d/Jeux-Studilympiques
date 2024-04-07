@@ -49,3 +49,10 @@
 .no-effect:hover{
    box-shadow: none;
 }
+
+//for the phone
+@media (max-width: 767px) {
+   .offer-card{
+       height: 550px;
+   } 
+}

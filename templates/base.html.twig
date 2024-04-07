@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="description" content="Bienvenue sur le site des Jeux Studilympiques qui, cette année, se déroulent à Paris, offrant une occasion unique de célébrer le sport, la diversité culturelle et l'esprit de compétition dans une des villes les plus emblématiques du monde.">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Accueil
-			{% endblock %}- Jeux Studilympiques
-		</title>
-		<meta name="description" content="Bienvenue sur le site des Jeux Studilympiques qui, cette année, se déroulent à Paris, offrant une occasion unique de célébrer le sport, la diversité culturelle et l'esprit de compétition dans une des villes les plus emblématiques du monde.">
-		<link rel="icon" type="image/x-icon" href="{{ asset('build/images/logo.png') }}"/>
+			{% endblock %}
+			- Jeux Studilympiques</title>
+		<link rel="icon" type="image/x-icon" href="{{ asset('build/images/logo.png') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 		{{ encore_entry_script_tags('app') }}
 		{{ encore_entry_link_tags('app') }}
 	</head>
 	<body>
-		{% include "include/_navbar.html.twig" %}
-		{% block body %}{% endblock %}
-		{{render (controller('App\\Controller\\RGPDController::footer'))}}
+		<header>
+			{% include "include/_navbar.html.twig" %}
+		</header>
+		<main>
+			{% block body %}{% endblock %}
+		</main>
+		<footer>
+			{{ render(controller('App\\Controller\\RGPDController::footer')) }}
+		</footer>
 		<div id="cookie-banner">
 			<div class="des-cookie">
 				Ce site utilise des cookies pour vous garantir une meilleure expérience utilisateur :

@@ -83,3 +83,10 @@ a:hover{
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
     margin-bottom: 20px;
 }
+
+//for the phone
+@media (max-width: 767px) {
+    .title{
+        margin-top: 200px;
+    }
+}
