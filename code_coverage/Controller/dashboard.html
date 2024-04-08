@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /Users/coralineday/Desktop/jeux-studilympiques/src/Controller</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=9.2.31" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css?v=9.2.31" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=9.2.31" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/Users/coralineday/Desktop/jeux-studilympiques/src</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Controller</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Admin/DashboardController.php.html#16">App\Controller\Admin\DashboardController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/OfferCrudController.php.html#15">App\Controller\Admin\OfferCrudController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/ReservationCrudController.php.html#16">App\Controller\Admin\ReservationCrudController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/UserCrudController.php.html#16">App\Controller\Admin\UserCrudController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfirmationController.php.html#17">App\Controller\ConfirmationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CookieController.php.html#9">App\Controller\CookieController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OfferController.php.html#12">App\Controller\OfferController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentController.php.html#17">App\Controller\PaymentController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RGPDController.php.html#9">App\Controller\RGPDController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RegistrationController.php.html#17">App\Controller\RegistrationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReservationController.php.html#18">App\Controller\ReservationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#23">App\Controller\ResetPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SecurityController.php.html#10">App\Controller\SecurityController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserController.php.html#17">App\Controller\UserController</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="ReservationController.php.html#18">App\Controller\ReservationController</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="ConfirmationController.php.html#17">App\Controller\ConfirmationController</a></td><td class="text-right">306</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#23">App\Controller\ResetPasswordController</a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="UserController.php.html#17">App\Controller\UserController</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="OfferController.php.html#12">App\Controller\OfferController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PaymentController.php.html#17">App\Controller\PaymentController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="RegistrationController.php.html#17">App\Controller\RegistrationController</a></td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Admin/DashboardController.php.html#18"><abbr title="App\Controller\Admin\DashboardController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/DashboardController.php.html#25"><abbr title="App\Controller\Admin\DashboardController::configureDashboard">configureDashboard</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/DashboardController.php.html#32"><abbr title="App\Controller\Admin\DashboardController::configureMenuItems">configureMenuItems</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/OfferCrudController.php.html#17"><abbr title="App\Controller\Admin\OfferCrudController::getEntityFqcn">getEntityFqcn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/OfferCrudController.php.html#22"><abbr title="App\Controller\Admin\OfferCrudController::configureCrud">configureCrud</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/OfferCrudController.php.html#34"><abbr title="App\Controller\Admin\OfferCrudController::configureFields">configureFields</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/ReservationCrudController.php.html#18"><abbr title="App\Controller\Admin\ReservationCrudController::getEntityFqcn">getEntityFqcn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/ReservationCrudController.php.html#23"><abbr title="App\Controller\Admin\ReservationCrudController::configureCrud">configureCrud</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/ReservationCrudController.php.html#35"><abbr title="App\Controller\Admin\ReservationCrudController::configureFields">configureFields</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/UserCrudController.php.html#18"><abbr title="App\Controller\Admin\UserCrudController::getEntityFqcn">getEntityFqcn</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/UserCrudController.php.html#23"><abbr title="App\Controller\Admin\UserCrudController::configureCrud">configureCrud</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Admin/UserCrudController.php.html#35"><abbr title="App\Controller\Admin\UserCrudController::configureFields">configureFields</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfirmationController.php.html#19"><abbr title="App\Controller\ConfirmationController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfirmationController.php.html#72"><abbr title="App\Controller\ConfirmationController::generateFinalKey">generateFinalKey</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfirmationController.php.html#78"><abbr title="App\Controller\ConfirmationController::generateQrCode">generateQrCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ConfirmationController.php.html#94"><abbr title="App\Controller\ConfirmationController::generatePdfTicket">generatePdfTicket</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="CookieController.php.html#11"><abbr title="App\Controller\CookieController::setCookie">setCookie</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OfferController.php.html#14"><abbr title="App\Controller\OfferController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OfferController.php.html#19"><abbr title="App\Controller\OfferController::offer">offer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="OfferController.php.html#45"><abbr title="App\Controller\OfferController::home">home</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PaymentController.php.html#20"><abbr title="App\Controller\PaymentController::new">new</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RGPDController.php.html#11"><abbr title="App\Controller\RGPDController::politique">politique</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RGPDController.php.html#17"><abbr title="App\Controller\RGPDController::cgu">cgu</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RGPDController.php.html#23"><abbr title="App\Controller\RGPDController::mentions">mentions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RGPDController.php.html#29"><abbr title="App\Controller\RGPDController::footer">footer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="RegistrationController.php.html#19"><abbr title="App\Controller\RegistrationController::registeronly">registeronly</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReservationController.php.html#21"><abbr title="App\Controller\ReservationController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReservationController.php.html#44"><abbr title="App\Controller\ReservationController::new">new</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReservationController.php.html#105"><abbr title="App\Controller\ReservationController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReservationController.php.html#142"><abbr title="App\Controller\ReservationController::updateTickets">updateTickets</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReservationController.php.html#153"><abbr title="App\Controller\ReservationController::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ReservationController.php.html#186"><abbr title="App\Controller\ReservationController::getTotalCost">getTotalCost</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#37"><abbr title="App\Controller\ResetPasswordController::request">request</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#59"><abbr title="App\Controller\ResetPasswordController::checkEmail">checkEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#76"><abbr title="App\Controller\ResetPasswordController::reset">reset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#133"><abbr title="App\Controller\ResetPasswordController::processSendingPasswordResetEmail">processSendingPasswordResetEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SecurityController.php.html#12"><abbr title="App\Controller\SecurityController::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="SecurityController.php.html#25"><abbr title="App\Controller\SecurityController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserController.php.html#20"><abbr title="App\Controller\UserController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="UserController.php.html#67"><abbr title="App\Controller\UserController::password">password</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="ConfirmationController.php.html#94"><abbr title="App\Controller\ConfirmationController::generatePdfTicket">generatePdfTicket</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="ConfirmationController.php.html#19"><abbr title="App\Controller\ConfirmationController::index">index</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="ReservationController.php.html#44"><abbr title="App\Controller\ReservationController::new">new</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="UserController.php.html#67"><abbr title="App\Controller\UserController::password">password</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#76"><abbr title="App\Controller\ResetPasswordController::reset">reset</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="UserController.php.html#20"><abbr title="App\Controller\UserController::edit">edit</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="PaymentController.php.html#20"><abbr title="App\Controller\PaymentController::new">new</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="ReservationController.php.html#105"><abbr title="App\Controller\ReservationController::edit">edit</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="OfferController.php.html#19"><abbr title="App\Controller\OfferController::offer">offer</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="RegistrationController.php.html#19"><abbr title="App\Controller\RegistrationController::registeronly">registeronly</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="ReservationController.php.html#21"><abbr title="App\Controller\ReservationController::index">index</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="ReservationController.php.html#153"><abbr title="App\Controller\ReservationController::delete">delete</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="ReservationController.php.html#186"><abbr title="App\Controller\ReservationController::getTotalCost">getTotalCost</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#37"><abbr title="App\Controller\ResetPasswordController::request">request</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#133"><abbr title="App\Controller\ResetPasswordController::processSendingPasswordResetEmail">processSendingPasswordResetEmail</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="ResetPasswordController.php.html#59"><abbr title="App\Controller\ResetPasswordController::checkEmail">checkEmail</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.31</a> using <a href="https://secure.php.net/" target="_top">PHPDBG 8.3.4</a> and <a href="https://phpunit.de/">PHPUnit 9.6.17</a> at Mon Apr 8 14:55:00 UTC 2024.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=9.2.31" type="text/javascript"></script>
+  <script src="../_js/d3.min.js?v=9.2.31" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js?v=9.2.31" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([14,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([40,0,0,0,0,0,0,0,0,0,0,1], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,3,"<a href=\"Admin\/DashboardController.php.html#16\">App\\Controller\\Admin\\DashboardController<\/a>"],[0,3,"<a href=\"Admin\/OfferCrudController.php.html#15\">App\\Controller\\Admin\\OfferCrudController<\/a>"],[0,3,"<a href=\"Admin\/ReservationCrudController.php.html#16\">App\\Controller\\Admin\\ReservationCrudController<\/a>"],[0,3,"<a href=\"Admin\/UserCrudController.php.html#16\">App\\Controller\\Admin\\UserCrudController<\/a>"],[0,17,"<a href=\"ConfirmationController.php.html#17\">App\\Controller\\ConfirmationController<\/a>"],[0,1,"<a href=\"CookieController.php.html#9\">App\\Controller\\CookieController<\/a>"],[0,5,"<a href=\"OfferController.php.html#12\">App\\Controller\\OfferController<\/a>"],[0,5,"<a href=\"PaymentController.php.html#17\">App\\Controller\\PaymentController<\/a>"],[0,4,"<a href=\"RGPDController.php.html#9\">App\\Controller\\RGPDController<\/a>"],[0,3,"<a href=\"RegistrationController.php.html#17\">App\\Controller\\RegistrationController<\/a>"],[0,22,"<a href=\"ReservationController.php.html#18\">App\\Controller\\ReservationController<\/a>"],[0,15,"<a href=\"ResetPasswordController.php.html#23\">App\\Controller\\ResetPasswordController<\/a>"],[0,2,"<a href=\"SecurityController.php.html#10\">App\\Controller\\SecurityController<\/a>"],[0,13,"<a href=\"UserController.php.html#17\">App\\Controller\\UserController<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Admin\/DashboardController.php.html#18\">App\\Controller\\Admin\\DashboardController::index<\/a>"],[0,1,"<a href=\"Admin\/DashboardController.php.html#25\">App\\Controller\\Admin\\DashboardController::configureDashboard<\/a>"],[0,1,"<a href=\"Admin\/DashboardController.php.html#32\">App\\Controller\\Admin\\DashboardController::configureMenuItems<\/a>"],[0,1,"<a href=\"Admin\/OfferCrudController.php.html#17\">App\\Controller\\Admin\\OfferCrudController::getEntityFqcn<\/a>"],[0,1,"<a href=\"Admin\/OfferCrudController.php.html#22\">App\\Controller\\Admin\\OfferCrudController::configureCrud<\/a>"],[0,1,"<a href=\"Admin\/OfferCrudController.php.html#34\">App\\Controller\\Admin\\OfferCrudController::configureFields<\/a>"],[0,1,"<a href=\"Admin\/ReservationCrudController.php.html#18\">App\\Controller\\Admin\\ReservationCrudController::getEntityFqcn<\/a>"],[0,1,"<a href=\"Admin\/ReservationCrudController.php.html#23\">App\\Controller\\Admin\\ReservationCrudController::configureCrud<\/a>"],[0,1,"<a href=\"Admin\/ReservationCrudController.php.html#35\">App\\Controller\\Admin\\ReservationCrudController::configureFields<\/a>"],[0,1,"<a href=\"Admin\/UserCrudController.php.html#18\">App\\Controller\\Admin\\UserCrudController::getEntityFqcn<\/a>"],[0,1,"<a href=\"Admin\/UserCrudController.php.html#23\">App\\Controller\\Admin\\UserCrudController::configureCrud<\/a>"],[0,1,"<a href=\"Admin\/UserCrudController.php.html#35\">App\\Controller\\Admin\\UserCrudController::configureFields<\/a>"],[0,7,"<a href=\"ConfirmationController.php.html#19\">App\\Controller\\ConfirmationController::index<\/a>"],[0,1,"<a href=\"ConfirmationController.php.html#72\">App\\Controller\\ConfirmationController::generateFinalKey<\/a>"],[0,1,"<a href=\"ConfirmationController.php.html#78\">App\\Controller\\ConfirmationController::generateQrCode<\/a>"],[0,8,"<a href=\"ConfirmationController.php.html#94\">App\\Controller\\ConfirmationController::generatePdfTicket<\/a>"],[0,1,"<a href=\"CookieController.php.html#11\">App\\Controller\\CookieController::setCookie<\/a>"],[0,1,"<a href=\"OfferController.php.html#14\">App\\Controller\\OfferController::__construct<\/a>"],[0,3,"<a href=\"OfferController.php.html#19\">App\\Controller\\OfferController::offer<\/a>"],[0,1,"<a href=\"OfferController.php.html#45\">App\\Controller\\OfferController::home<\/a>"],[0,5,"<a href=\"PaymentController.php.html#20\">App\\Controller\\PaymentController::new<\/a>"],[0,1,"<a href=\"RGPDController.php.html#11\">App\\Controller\\RGPDController::politique<\/a>"],[0,1,"<a href=\"RGPDController.php.html#17\">App\\Controller\\RGPDController::cgu<\/a>"],[0,1,"<a href=\"RGPDController.php.html#23\">App\\Controller\\RGPDController::mentions<\/a>"],[0,1,"<a href=\"RGPDController.php.html#29\">App\\Controller\\RGPDController::footer<\/a>"],[0,3,"<a href=\"RegistrationController.php.html#19\">App\\Controller\\RegistrationController::registeronly<\/a>"],[0,3,"<a href=\"ReservationController.php.html#21\">App\\Controller\\ReservationController::index<\/a>"],[0,7,"<a href=\"ReservationController.php.html#44\">App\\Controller\\ReservationController::new<\/a>"],[0,5,"<a href=\"ReservationController.php.html#105\">App\\Controller\\ReservationController::edit<\/a>"],[0,1,"<a href=\"ReservationController.php.html#142\">App\\Controller\\ReservationController::updateTickets<\/a>"],[0,3,"<a href=\"ReservationController.php.html#153\">App\\Controller\\ReservationController::delete<\/a>"],[0,3,"<a href=\"ReservationController.php.html#186\">App\\Controller\\ReservationController::getTotalCost<\/a>"],[100,1,"<a href=\"ResetPasswordController.php.html#28\">App\\Controller\\ResetPasswordController::__construct<\/a>"],[0,3,"<a href=\"ResetPasswordController.php.html#37\">App\\Controller\\ResetPasswordController::request<\/a>"],[0,2,"<a href=\"ResetPasswordController.php.html#59\">App\\Controller\\ResetPasswordController::checkEmail<\/a>"],[0,6,"<a href=\"ResetPasswordController.php.html#76\">App\\Controller\\ResetPasswordController::reset<\/a>"],[0,3,"<a href=\"ResetPasswordController.php.html#133\">App\\Controller\\ResetPasswordController::processSendingPasswordResetEmail<\/a>"],[0,1,"<a href=\"SecurityController.php.html#12\">App\\Controller\\SecurityController::login<\/a>"],[0,1,"<a href=\"SecurityController.php.html#25\">App\\Controller\\SecurityController::logout<\/a>"],[0,6,"<a href=\"UserController.php.html#20\">App\\Controller\\UserController::edit<\/a>"],[0,7,"<a href=\"UserController.php.html#67\">App\\Controller\\UserController::password<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
