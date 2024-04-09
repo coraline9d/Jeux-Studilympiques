@@ -81,6 +81,10 @@ class RegistrationFormType extends AbstractType
                     'message' => 'Veuillez renseigner votre mot de passe',
                 ]),
             ],
+        ])
+        ->add('captcha', Recaptcha3Type::class, [
+            'constraints' => new Recaptcha3(),
+            'action_name' => 'Inscription',
         ]);
     }
 
