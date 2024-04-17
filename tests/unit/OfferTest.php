@@ -3,6 +3,7 @@
 namespace App\Tests\Unit;
 
 use App\Entity\Offer;
+use App\Entity\Reservation;
 use PHPUnit\Framework\TestCase;
 
 class OfferTest extends TestCase
@@ -22,5 +23,23 @@ class OfferTest extends TestCase
 
         $offer->setCounter(10);
         $this->assertEquals(10, $offer->getCounter());
+    }
+
+    public function testReservations()
+    {
+        $offer = new Offer();
+        $reservation = new Reservation();
+
+        // Ajouter une réservation à l'offre
+        $offer->addReservation($reservation);
+
+        $this->assertCount(1, $offer->getReservations());
+        $this->assertTrue($offer->getReservations()->contains($reservation));
+
+        // Supprimer la réservation de l'offre
+        $offer->removeReservation($reservation);
+
+        $this->assertCount(0, $offer->getReservations());
+        $this->assertFalse($offer->getReservations()->contains($reservation));
     }
 }
