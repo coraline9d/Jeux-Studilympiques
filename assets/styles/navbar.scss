@@ -113,27 +113,8 @@
 
 //for the phone landscape mode
 @media (min-width: 700px) and (max-width: 999px) {
-  .navbar-brand img {
-    width: 25%;
-  }
-
   .nav-link {
     font-size: 2.5vh;
-  }
-
-  .navbar{
-    padding: 10px;
-  }
- }
-
- //for the tablet
-@media (min-width: 1000px) and (max-width: 1400px) {
-  .navbar-brand img {
-    width: 35%;
-  }
-
-  .nav-link {
-    font-size: 1.5vh;
   }
 
   .navbar{

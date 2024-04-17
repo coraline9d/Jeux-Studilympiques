@@ -90,3 +90,10 @@ a:hover{
         margin-top: 200px;
     }
 }
+
+//for the phone landscape mode
+@media (min-width: 700px) and (max-width: 999px) {
+    .title{
+        margin-top: 220px;
+    }
+}
