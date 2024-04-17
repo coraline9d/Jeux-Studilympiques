@@ -22,7 +22,6 @@
 						<a class="nav-link" href="{{path('app_offer')}}">RÉSERVER</a>
 					</li>
 				{% endif %}
-
 				{% if app.user and app.user.roles is defined and 'ROLE_USER' in app.user.roles and 'ROLE_ADMIN' not in app.user.roles %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
